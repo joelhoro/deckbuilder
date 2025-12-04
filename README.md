@@ -29,20 +29,44 @@ Cards display power icons (Eschaton/Eminent Domain style):
 ```
 deckbuilder/
 ├── doc/
-│   └── game-design.md      # Full design document
+│   ├── game-design.md                    # Full design document
+│   ├── card-art-assets.md                # Card artwork specs
+│   └── job-description-*.md              # Agent job descriptions
 ├── assets/
 │   └── cards/
-│       ├── city-cards/     # City cards (4 colors)
+│       ├── city-cards/     # City cards (4 colors: red, blue, yellow, black)
 │       ├── player-cards/   # Treatment, scout, specialist cards
 │       ├── special/        # Epidemic, toxic waste, card back
 │       ├── icons/          # Power icons
 │       └── preview.html    # Card preview page
+├── index.html              # Main game page
+├── styles.css              # Game styling
+├── game.js                 # Game logic
 └── README.md
 ```
 
 ## 🚧 Status
 
-**Design phase** — iterating on game mechanics before building the prototype.
+**Prototype in progress** — Core deckbuilder mechanics are working!
+
+### ✅ Implemented
+- Full deckbuilder flow (draw, play, discard, shuffle)
+- Starting deck: 10 cards (7 credit, 2 treat, 1 scout)
+- Market system with card purchasing
+- Smooth card animations (draw, play, discard)
+- Deck peek feature (auto-shuffles on close)
+- Discard pile visualization (messy stack with persistent positions)
+- Power resource system (💰 Credit, 🩺 Treat, 🔭 Scout)
+- Play All button
+- Autoplay mode for testing
+
+### 🚧 In Progress / TODO
+- City card system (3 columns with decks)
+- Scouting mechanic (reveal cities from column decks)
+- Treating mechanic (move cities between columns)
+- Epidemic cards and escalation
+- Toxic waste cards
+- Win/lose conditions
 
 See [`doc/game-design.md`](doc/game-design.md) for full design details and open questions.
 

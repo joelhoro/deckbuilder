@@ -8,13 +8,15 @@ A **solo** web-based deckbuilder game inspired by Pandemic's mechanics. Build yo
 
 ## Core Mechanics
 
-### Player's Starting Deck (8 cards)
+### Player's Starting Deck (10 cards)
 
 | Card Type | Count | Purpose |
 |-----------|-------|---------|
-| Credit | 5 | Currency to buy new cards |
+| Credit | 7 | Currency to buy new cards |
 | Treat Disease | 2 | Treat a visible city (move it left) |
-| ??? | 1 | TBD - Scout card? (reveal cities) |
+| Scout | 1 | Reveal hidden cities from column decks |
+
+**Current Implementation:** Starting deck is fully implemented. Cards are shuffled and 5 are drawn each turn.
 
 ### Turn Structure (Standard Deckbuilder)
 
@@ -228,13 +230,7 @@ If you have **more than X Toxic Waste cards in your hand** at the start of your 
 
 ### High Priority (Need answers to prototype)
 
-1. **What is the 8th starting card?**
-   - **Scout card?** ← Fits the new visibility mechanic
-   - Wild treatment?
-   - Card draw?
-   - Trash a card?
-
-2. **How do cities start / enter the system?**
+1. **How do cities start / enter the system?**
    - All shuffled into column decks at start?
    - How many visible at game start? (1 per column? 0?)
    - How many cities total?
@@ -266,6 +262,44 @@ If you have **more than X Toxic Waste cards in your hand** at the start of your 
 
 ---
 
+## Current Implementation Status
+
+### ✅ Fully Implemented
+
+**Deckbuilder Core Mechanics:**
+- Starting deck (10 cards: 7 credit, 2 treat, 1 scout)
+- Draw 5 cards per turn
+- Play cards to accumulate resources (💰 Credit, 🩺 Treat, 🔭 Scout)
+- Buy cards from market (costs displayed below cards)
+- Discard pile (messy stack with persistent random positions)
+- Deck shuffle when empty
+- Deck peek feature (view all cards, auto-shuffles on close)
+
+**UI Features:**
+- Layout: Cities (left), Market/Played (top right), Hand (bottom), Discard (bottom right)
+- Smooth card animations (draw, play, discard)
+- Power summary display (shows accumulated resources)
+- Play All button
+- Autoplay mode for testing
+- ESC key closes popups
+
+**Card System:**
+- Card definitions with effects
+- Market display with costs
+- Hand rendering with fan-out effect
+- Played cards area
+- Discard pile visualization
+
+### 🚧 Not Yet Implemented
+
+- City card system (3 columns with decks and visible rows)
+- Scouting mechanic (reveal cities from column decks)
+- Treating mechanic (move cities between columns)
+- Epidemic cards and escalation
+- Toxic waste cards
+- Win/lose conditions
+- Card stacking in played area (for generic cards)
+
 ## Technical Notes
 
 ### Platform
@@ -273,7 +307,10 @@ If you have **more than X Toxic Waste cards in your hand** at the start of your 
 - **Solo game only** (no multiplayer planned)
 
 ### Tech Stack
-- TBD based on preferences
+- Vanilla JavaScript (no frameworks)
+- HTML5 / CSS3
+- SVG card assets
+- Dark theme UI
 
 ---
 
@@ -284,4 +321,5 @@ If you have **more than X Toxic Waste cards in your hand** at the start of your 
 | 0.1 | 2024-12-04 | Initial brain dump and structure |
 | 0.2 | 2024-12-04 | Added Toxic Waste cards mechanic |
 | 0.3 | 2024-12-04 | No cubes - stack position IS infection; added scouting/visibility mechanic; confirmed solo game; clarified lose conditions (toxic waste + time) |
+| 0.4 | 2024-12-04 | **Prototype implementation** - Full deckbuilder mechanics working: starting deck (10 cards), draw/play/discard/shuffle, market system, smooth animations, deck peek, discard visualization, power system |
 
