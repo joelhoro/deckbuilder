@@ -9,20 +9,6 @@
 <body>
   <div class="game-container">
     
-    <!-- Header / Game Info -->
-    <header class="game-header">
-      <h1>Pandemic Deckbuilder</h1>
-      <div class="turn-info">
-        <span class="turn-counter">Turn 1</span>
-        <span class="phase-indicator">Play Phase</span>
-      </div>
-      <div class="resources">
-        <div class="resource credit">💰 <span>0</span></div>
-        <div class="resource treat">🩺 <span>0</span></div>
-        <div class="resource scout">🔭 <span>0</span></div>
-      </div>
-    </header>
-
     <!-- Cities Area (left tall section) -->
     <section class="city-area">
       <h2>Cities</h2>
@@ -103,29 +89,41 @@
     <section class="market-area">
       <h2>Market</h2>
       <div class="market-display">
-        <div class="card market-card" data-cost="2">
-          <img src="assets/cards/player-cards/treat-disease.svg" alt="Treat Disease">
-          <span class="cost-badge">💰2</span>
+        <div class="market-item">
+          <div class="card market-card" data-cost="2">
+            <img src="assets/cards/player-cards/treat-disease.svg" alt="Treat Disease">
+          </div>
+          <span class="market-cost">💰 2</span>
         </div>
-        <div class="card market-card" data-cost="3">
-          <img src="assets/cards/player-cards/scout.svg" alt="Scout">
-          <span class="cost-badge">💰3</span>
+        <div class="market-item">
+          <div class="card market-card" data-cost="3">
+            <img src="assets/cards/player-cards/scout.svg" alt="Scout">
+          </div>
+          <span class="market-cost">💰 3</span>
         </div>
-        <div class="card market-card" data-cost="4">
-          <img src="assets/cards/player-cards/advanced-treatment.svg" alt="Advanced Treatment">
-          <span class="cost-badge">💰4</span>
+        <div class="market-item">
+          <div class="card market-card" data-cost="4">
+            <img src="assets/cards/player-cards/advanced-treatment.svg" alt="Advanced Treatment">
+          </div>
+          <span class="market-cost">💰 4</span>
         </div>
-        <div class="card market-card" data-cost="5">
-          <img src="assets/cards/player-cards/medic.svg" alt="Medic">
-          <span class="cost-badge">💰5</span>
+        <div class="market-item">
+          <div class="card market-card" data-cost="5">
+            <img src="assets/cards/player-cards/medic.svg" alt="Medic">
+          </div>
+          <span class="market-cost">💰 5</span>
         </div>
-        <div class="card market-card" data-cost="4">
-          <img src="assets/cards/player-cards/researcher.svg" alt="Researcher">
-          <span class="cost-badge">💰4</span>
+        <div class="market-item">
+          <div class="card market-card" data-cost="4">
+            <img src="assets/cards/player-cards/researcher.svg" alt="Researcher">
+          </div>
+          <span class="market-cost">💰 4</span>
         </div>
-        <div class="card market-card" data-cost="3">
-          <img src="assets/cards/player-cards/decontamination.svg" alt="Decontamination">
-          <span class="cost-badge">💰3</span>
+        <div class="market-item">
+          <div class="card market-card" data-cost="3">
+            <img src="assets/cards/player-cards/decontamination.svg" alt="Decontamination">
+          </div>
+          <span class="market-cost">💰 3</span>
         </div>
       </div>
     </section>
@@ -141,7 +139,6 @@
         <div class="power-item credit">💰 <span class="power-credit">0</span></div>
         <div class="power-item treat">🩺 <span class="power-treat">0</span></div>
         <div class="power-item scout">🔭 <span class="power-scout">0</span></div>
-        <button class="btn btn-finish-turn">Finish Turn →</button>
       </div>
     </section>
 

@@ -83,11 +83,9 @@ let elements = {};
 function init() {
   // Cache DOM elements
   elements = {
-    turnCounter: document.querySelector('.turn-counter'),
-    phaseIndicator: document.querySelector('.phase-indicator'),
-    creditResource: document.querySelector('.resource.credit span'),
-    treatResource: document.querySelector('.resource.treat span'),
-    scoutResource: document.querySelector('.resource.scout span'),
+    creditResource: document.querySelector('.power-credit'),
+    treatResource: document.querySelector('.power-treat'),
+    scoutResource: document.querySelector('.power-scout'),
     handCards: document.querySelector('.hand-cards'),
     playedCards: document.querySelector('.played-cards'),
     deckStack: document.querySelector('.player-deck .deck-stack'),
@@ -187,10 +185,39 @@ function shuffleDeck() {
   console.log('🔀 Deck shuffled');
 }
 
-function drawCards(count) {
-  for (let i = 0; i < count; i++) {
-    drawOneCard();
+function drawCards(count, animated = false, callback) {
+  if (!animated) {
+    // Simple draw without animation
+    for (let i = 0; i < count; i++) {
+      drawOneCard();
+    }
+    updateUI();
+    if (callback) callback();
+    return;
   }
+  
+  // Animated draw (one at a time)
+  let drawn = 0;
+  
+  function drawNext() {
+    if (drawn >= count) {
+      updateUI();
+      if (callback) callback();
+      return;
+    }
+    
+    if (drawOneCard()) {
+      drawn++;
+      animateDrawCard(() => {
+        drawNext();
+      });
+    } else {
+      updateUI();
+      if (callback) callback();
+    }
+  }
+  
+  drawNext();
 }
 
 function drawOneCard() {
@@ -202,9 +229,16 @@ function drawOneCard() {
     }
     
     // Move discard to deck and shuffle
+    // Clear discard position data so cards get new positions next time
+    gameState.discard.forEach(card => {
+      delete card.discardRotation;
+      delete card.discardOffsetX;
+      delete card.discardOffsetY;
+    });
     gameState.deck = [...gameState.discard];
     gameState.discard = [];
     shuffleDeck();
+    updateUI();
     showMessage('♻️ Shuffled discard pile into deck');
   }
   
@@ -387,14 +421,13 @@ function completeFinishTurn() {
   // Reset resources
   gameState.resources = { credit: 0, treat: 0, scout: 0 };
   
-  // Draw new hand
-  drawCards(5);
-  
   // Increment turn
   gameState.turn++;
   
-  updateUI();
-  showMessage(`Turn ${gameState.turn} - Drew ${gameState.hand.length} cards`);
+  // Draw new hand (animated)
+  drawCards(5, true, () => {
+    showMessage(`Turn ${gameState.turn} - Drew ${gameState.hand.length} cards`);
+  });
 }
 
 function animateCardsToDiscard(cardElements, callback) {
@@ -427,10 +460,13 @@ function animateCardsToDiscard(cardElements, callback) {
     
     // Stagger the animations
     setTimeout(() => {
-      flyingCard.style.left = `${targetX - cardRect.width / 2}px`;
-      flyingCard.style.top = `${targetY - cardRect.height / 2}px`;
-      flyingCard.style.transform = 'scale(0.5) rotate(10deg)';
-      flyingCard.style.opacity = '0.7';
+      const randomRotate = (Math.random() - 0.5) * 30;
+      const randomOffsetX = (Math.random() - 0.5) * 20;
+      const randomOffsetY = (Math.random() - 0.5) * 20;
+      flyingCard.style.left = `${targetX - cardRect.width / 2 + randomOffsetX}px`;
+      flyingCard.style.top = `${targetY - cardRect.height / 2 + randomOffsetY}px`;
+      flyingCard.style.transform = `rotate(${randomRotate}deg)`;
+      flyingCard.style.opacity = '1';
       
       setTimeout(() => {
         flyingCard.remove();
@@ -446,6 +482,62 @@ function animateCardsToDiscard(cardElements, callback) {
   if (total === 0) {
     callback();
   }
+}
+
+function animateDrawCard(callback) {
+  const deckRect = elements.deckStack.getBoundingClientRect();
+  const handRect = elements.handCards.getBoundingClientRect();
+  
+  // Get the last card in hand (the one just drawn)
+  const drawnCard = gameState.hand[gameState.hand.length - 1];
+  if (!drawnCard) {
+    if (callback) callback();
+    return;
+  }
+  
+  // Create flying card from deck
+  const flyingCard = document.createElement('div');
+  flyingCard.className = 'card flying-card';
+  flyingCard.innerHTML = `<img src="assets/cards/special/card-back.svg" alt="Card">`;
+  flyingCard.style.cssText = `
+    position: fixed;
+    left: ${deckRect.left}px;
+    top: ${deckRect.top}px;
+    width: ${deckRect.width}px;
+    height: ${deckRect.height}px;
+    z-index: 1000;
+    transition: all 0.25s ease-out;
+    pointer-events: none;
+    border-radius: 8px;
+    overflow: hidden;
+  `;
+  
+  document.body.appendChild(flyingCard);
+  
+  // Update deck count immediately
+  elements.deckCount.textContent = gameState.deck.length;
+  
+  // Calculate target position (center of hand area)
+  const targetX = handRect.left + handRect.width / 2 - deckRect.width / 2;
+  const targetY = handRect.top;
+  
+  // Animate to hand
+  requestAnimationFrame(() => {
+    flyingCard.style.left = `${targetX}px`;
+    flyingCard.style.top = `${targetY}px`;
+    
+    // Flip to show card face mid-animation
+    setTimeout(() => {
+      flyingCard.querySelector('img').src = drawnCard.image;
+    }, 125);
+  });
+  
+  // Cleanup and callback
+  setTimeout(() => {
+    flyingCard.remove();
+    updateUI();
+    if (callback) callback();
+  }, 250);
 }
 
 // ============================================
@@ -503,14 +595,10 @@ function autoplayStep() {
 // ============================================
 
 function updateUI() {
-  // Turn info
-  elements.turnCounter.textContent = `Turn ${gameState.turn}`;
-  elements.phaseIndicator.textContent = `${gameState.phase} Phase`;
-  
-  // Resources
-  elements.creditResource.textContent = gameState.resources.credit;
-  elements.treatResource.textContent = gameState.resources.treat;
-  elements.scoutResource.textContent = gameState.resources.scout;
+  // Resources (in power summary)
+  if (elements.creditResource) elements.creditResource.textContent = gameState.resources.credit;
+  if (elements.treatResource) elements.treatResource.textContent = gameState.resources.treat;
+  if (elements.scoutResource) elements.scoutResource.textContent = gameState.resources.scout;
   
   // Render hand
   renderHand();
@@ -574,14 +662,17 @@ function updateDiscardVisual() {
       const isTop = i === gameState.discard.length - 1;
       const depth = i - startIndex;
       
-      // Random rotation and offset for messy look (except top card)
-      const rotation = isTop ? 0 : (Math.random() - 0.5) * 20;
-      const offsetX = isTop ? 0 : (Math.random() - 0.5) * 8;
-      const offsetY = isTop ? 0 : (Math.random() - 0.5) * 8;
+      // Assign random rotation/offset ONCE when card enters discard
+      // Store on the card object so it persists
+      if (card.discardRotation === undefined) {
+        card.discardRotation = (Math.random() - 0.5) * 35;
+        card.discardOffsetX = (Math.random() - 0.5) * 25;
+        card.discardOffsetY = (Math.random() - 0.5) * 25;
+      }
       
       html += `
         <div class="discard-card ${isTop ? 'top-card' : ''}" 
-             style="transform: rotate(${rotation}deg) translate(${offsetX}px, ${offsetY}px); z-index: ${depth};">
+             style="transform: rotate(${card.discardRotation}deg) translate(${card.discardOffsetX}px, ${card.discardOffsetY}px); z-index: ${depth};">
           <img src="${card.image}" alt="${card.name}">
         </div>
       `;
@@ -656,10 +747,17 @@ function showDeckPopup() {
   const overlay = document.createElement('div');
   overlay.className = 'discard-popup-overlay deck-popup-overlay';
   
+  // ESC handler reference (will be set later)
+  let escHandler = null;
+  
   // Shuffle deck when closing
   const closeAndShuffle = () => {
+    if (escHandler) {
+      document.removeEventListener('keydown', escHandler);
+    }
     overlay.remove();
     shuffleDeck();
+    updateUI(); // Update the deck display
     showMessage('🔀 Deck shuffled after peeking');
   };
   
@@ -697,6 +795,14 @@ function showDeckPopup() {
   
   overlay.appendChild(popup);
   document.body.appendChild(overlay);
+  
+  // Close on ESC (and shuffle)
+  escHandler = (e) => {
+    if (e.key === 'Escape') {
+      closeAndShuffle();
+    }
+  };
+  document.addEventListener('keydown', escHandler);
 }
 
 function getResourceIcon(resource) {

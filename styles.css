@@ -80,12 +80,11 @@ body::before {
 .game-container {
   display: grid;
   grid-template-areas:
-    "header header header"
     "cities market status"
     "cities played status"
     "hand hand discard";
   grid-template-columns: 1fr 1fr 260px;
-  grid-template-rows: auto 1fr 1fr auto;
+  grid-template-rows: 1fr 1fr auto;
   min-height: 100vh;
   gap: var(--gap-md);
   padding: var(--gap-md);
@@ -361,14 +360,29 @@ body::before {
 }
 
 .market-display {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--gap-md);
-  justify-items: center;
+  justify-content: center;
+}
+
+.market-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.market-cost {
+  font-size: 0.9rem;
+  color: var(--accent-gold);
+  font-weight: bold;
 }
 
 .market-card {
   position: relative;
+  width: 100px;
+  height: 140px;
 }
 
 .market-card:hover {
@@ -406,17 +420,7 @@ body::before {
 }
 
 .cost-badge {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background: linear-gradient(135deg, #FFD54F, #FFA000);
-  color: #1a1a24;
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-size: 0.75rem;
-  font-weight: bold;
-  box-shadow: 0 2px 8px rgba(255, 213, 79, 0.3);
-  z-index: 1001;
+  display: none; /* Cost is already shown in card artwork */
 }
 
 /* ============================================
@@ -464,15 +468,8 @@ body::before {
 
 .player-deck .deck-stack,
 .discard-pile .discard-stack {
-  width: 50px;
-  height: 70px;
-}
-
-.player-deck .card,
-.discard-pile .card,
-.discard-pile .discard-card {
-  width: 50px !important;
-  height: 70px !important;
+  width: var(--card-width);
+  height: var(--card-height);
 }
 
 .deck-label,
@@ -676,26 +673,24 @@ body::before {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  width: 100%;
+  gap: var(--gap-sm);
+  flex: 1;
 }
 
 .hand-footer {
   display: flex;
   align-items: center;
-  gap: var(--gap-sm);
-  flex-wrap: wrap;
-  justify-content: center;
+  gap: var(--gap-md);
 }
 
 .btn-play-all {
-  padding: 4px 8px;
+  padding: 8px 16px;
   background: linear-gradient(135deg, var(--accent-purple), #7B1FA2);
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   color: white;
   font-family: inherit;
-  font-size: 0.65rem;
+  font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -704,33 +699,36 @@ body::before {
 }
 
 .btn-play-all:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(156, 39, 176, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(156, 39, 176, 0.4);
 }
 
 .hand-cards {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 4px;
+  flex-direction: row;
+  align-items: flex-end;
+  padding: 10px;
 }
 
 .hand-card {
-  transition: transform 0.2s ease, z-index 0s;
-  width: 70px !important;
-  height: 98px !important;
-  margin-top: -60px;
+  transition: transform 0.2s ease, margin 0.2s ease, z-index 0s;
+  width: var(--card-width) !important;
+  height: var(--card-height) !important;
+  margin-left: -40px;
+  transform-origin: bottom center;
 }
 
 .hand-card:first-child {
-  margin-top: 0;
+  margin-left: 0;
 }
 
 /* Fan out cards with slight rotation */
 .hand-card:hover {
-  transform: translateX(30px) scale(1.1) !important;
+  transform: translateY(-20px) scale(1.1) !important;
+  margin-left: 10px;
+  margin-right: 10px;
   z-index: 20;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
 }
 
 /* Played Area */
@@ -738,33 +736,33 @@ body::before {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  width: 100%;
+  gap: var(--gap-sm);
+  flex: 1;
 }
 
 .played-cards {
   display: flex;
   flex-wrap: wrap;
-  padding: 4px;
+  padding: var(--gap-sm);
   border: 2px dashed var(--border-subtle);
   border-radius: 8px;
-  min-height: 50px;
-  width: 100%;
+  min-height: 80px;
+  min-width: 200px;
   justify-content: center;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
 }
 
 .played-cards .card {
-  width: 36px !important;
-  height: 50px !important;
+  width: 90px !important;
+  height: 125px !important;
   margin: 0 !important;
 }
 
 .played-cards:empty::after {
-  content: 'Played';
+  content: 'Played cards';
   color: var(--text-dim);
-  font-size: 0.65rem;
+  font-size: 0.75rem;
 }
 
 .played-footer {
