@@ -132,9 +132,52 @@ For each substantive change:
 
 ---
 
+## Work Completed
+
+### Code Review (2025-12-04)
+- ✅ Reviewed `game.js` - Found solid deckbuilder implementation by Game Logic Agent
+- ✅ Reviewed Backend Engineer's design doc - Excellent architecture proposal
+- ✅ Identified gap: Design exists but isn't implemented yet
+- ✅ Created `doc/integration-plan.md` - Coordination hub for all agents
+
+### Key Findings
+1. **Game Logic Agent** has working deckbuilder (draw/play/discard/shuffle)
+2. **Backend Engineer** has comprehensive design (PRNG, actions, undo) but not coded
+3. **City system** is the critical missing piece - both agents note it
+4. **Randomness** uses `Math.random()` - needs PRNG for determinism
+
+---
+
+## Multi-Agent Coordination
+
+Since agents work in separate chat sessions:
+
+### Communication Channels
+| Channel | Purpose |
+|---------|---------|
+| `doc/job-description-*.md` | Each agent's status & notes |
+| `doc/integration-plan.md` | Shared roadmap & task assignments |
+| Git branches | Isolated work, PRs for review |
+| Code comments | `// TODO(@agent): message` |
+
+### Workflow
+```
+1. Read integration-plan.md for current status
+2. Check your dependencies (previous phase done?)
+3. Create feature branch
+4. Do work
+5. Update your job description
+6. Check off items in integration-plan.md
+7. Commit with clear message
+8. (Optional) Leave notes for other agents
+```
+
+---
+
 ## Version History
 
 | Version | Date | Changes |
 |---------|------|---------|
 | 1.0 | 2025-12-04 | Initial job description created |
+| 1.1 | 2025-12-04 | Added code review findings, created integration plan |
 

@@ -1,173 +1,774 @@
 /**
- * Pandemic Deckbuilder - Game Logic (Placeholder)
+ * Pandemic Deckbuilder - Game Logic
+ * Implements standard deckbuilder mechanics (like Star Realms)
  */
+
+// Card definitions
+const CARD_TYPES = {
+  credit: {
+    name: 'Credit',
+    image: 'assets/cards/player-cards/credit-card.svg',
+    effects: { credit: 1 }
+  },
+  treat: {
+    name: 'Treat Disease',
+    image: 'assets/cards/player-cards/treat-disease.svg',
+    effects: { treat: 1 }
+  },
+  scout: {
+    name: 'Scout',
+    image: 'assets/cards/player-cards/scout.svg',
+    effects: { scout: 1 }
+  },
+  advancedTreat: {
+    name: 'Advanced Treatment',
+    image: 'assets/cards/player-cards/advanced-treatment.svg',
+    effects: { treat: 2 }
+  },
+  medic: {
+    name: 'Medic',
+    image: 'assets/cards/player-cards/medic.svg',
+    effects: { treat: 3 }
+  },
+  researcher: {
+    name: 'Researcher',
+    image: 'assets/cards/player-cards/researcher.svg',
+    effects: { credit: 1, scout: 1 }
+  },
+  decontamination: {
+    name: 'Decontamination',
+    image: 'assets/cards/player-cards/decontamination.svg',
+    effects: { treat: 1, credit: 1 }
+  }
+};
 
 // Game state
 const gameState = {
   turn: 1,
-  phase: 'play', // 'play' | 'buy' | 'cleanup'
+  phase: 'play', // 'play' | 'buy'
+  
+  // Player's cards
+  deck: [],        // Draw pile (face down)
+  hand: [],        // Current hand
+  played: [],      // Cards played this turn
+  discard: [],     // Discard pile
+  
+  // Resources accumulated this turn
   resources: {
     credit: 0,
     treat: 0,
     scout: 0
   },
+  
+  // Game stats
   stats: {
     citiesCured: 0,
-    outbreaks: 2,
+    outbreaks: 0,
     maxOutbreaks: 8,
-    toxicWaste: 1,
+    toxicWaste: 0,
     maxToxicWaste: 10
-  }
+  },
+  
+  // Autoplay
+  autoplayInterval: null
 };
 
-// DOM elements
-const elements = {
-  turnCounter: document.querySelector('.turn-counter'),
-  phaseIndicator: document.querySelector('.phase-indicator'),
-  creditResource: document.querySelector('.resource.credit span'),
-  treatResource: document.querySelector('.resource.treat span'),
-  scoutResource: document.querySelector('.resource.scout span'),
-  handCards: document.querySelectorAll('.hand-card'),
-  marketCards: document.querySelectorAll('.market-card'),
-  cityCards: document.querySelectorAll('.city-card'),
-  endTurnBtn: document.querySelector('.btn-primary'),
-  undoBtn: document.querySelector('.btn-secondary'),
-  playedArea: document.querySelector('.played-cards')
-};
+// DOM elements (will be set on init)
+let elements = {};
 
-// Initialize game
+// ============================================
+// Initialization
+// ============================================
+
 function init() {
+  // Cache DOM elements
+  elements = {
+    turnCounter: document.querySelector('.turn-counter'),
+    phaseIndicator: document.querySelector('.phase-indicator'),
+    creditResource: document.querySelector('.resource.credit span'),
+    treatResource: document.querySelector('.resource.treat span'),
+    scoutResource: document.querySelector('.resource.scout span'),
+    handCards: document.querySelector('.hand-cards'),
+    playedCards: document.querySelector('.played-cards'),
+    deckStack: document.querySelector('.player-deck .deck-stack'),
+    deckCount: document.querySelector('.player-deck .deck-count'),
+    discardStack: document.querySelector('.discard-stack'),
+    discardCount: document.querySelector('.discard-pile .deck-count'),
+    marketCards: document.querySelectorAll('.market-card'),
+    finishTurnBtn: document.querySelector('.btn-finish-turn'),
+    endTurnBtn: document.querySelector('.btn-primary'),
+    undoBtn: document.querySelector('.btn-secondary'),
+    autoplayBtn: document.querySelector('.btn-autoplay'),
+    playAllBtn: document.querySelector('.btn-play-all')
+  };
+  
+  // Create starting deck (5 credits, 2 treat, 1 scout)
+  createStartingDeck();
+  
+  // Shuffle and draw initial hand
+  shuffleDeck();
+  drawCards(5);
+  
+  // Setup event listeners
   setupEventListeners();
+  
+  // Initial UI update
   updateUI();
+  
   console.log('🎮 Pandemic Deckbuilder initialized');
+  showMessage('Game started! Play cards from your hand.');
 }
 
-// Event listeners
-function setupEventListeners() {
-  // Hand card clicks
-  elements.handCards.forEach(card => {
-    card.addEventListener('click', () => playCard(card));
-  });
+function createStartingDeck() {
+  gameState.deck = [];
   
-  // Market card clicks
+  // 7 Credit cards
+  for (let i = 0; i < 7; i++) {
+    gameState.deck.push({ ...CARD_TYPES.credit, id: `credit-${i}` });
+  }
+  
+  // 2 Treat cards
+  for (let i = 0; i < 2; i++) {
+    gameState.deck.push({ ...CARD_TYPES.treat, id: `treat-${i}` });
+  }
+  
+  // 1 Scout card
+  gameState.deck.push({ ...CARD_TYPES.scout, id: 'scout-0' });
+  
+  // Total: 10 cards (7 credit + 2 treat + 1 scout)
+}
+
+function setupEventListeners() {
+  // Finish turn button
+  if (elements.finishTurnBtn) {
+    elements.finishTurnBtn.addEventListener('click', finishTurn);
+  }
+  if (elements.endTurnBtn) {
+    elements.endTurnBtn.addEventListener('click', finishTurn);
+  }
+  
+  // Market cards - set up click and hover preview
   elements.marketCards.forEach(card => {
     card.addEventListener('click', () => buyCard(card));
+    
+    // Magnified preview on hover
+    card.addEventListener('mouseenter', (e) => showCardPreview(card, e));
+    card.addEventListener('mouseleave', hideCardPreview);
+    card.addEventListener('mousemove', (e) => moveCardPreview(e));
   });
   
-  // City card clicks
-  elements.cityCards.forEach(card => {
-    card.addEventListener('click', () => treatCity(card));
-  });
+  // Autoplay button
+  if (elements.autoplayBtn) {
+    elements.autoplayBtn.addEventListener('click', toggleAutoplay);
+  }
   
-  // Button clicks
-  elements.endTurnBtn.addEventListener('click', endTurn);
-  elements.undoBtn.addEventListener('click', undo);
+  // Play all button
+  if (elements.playAllBtn) {
+    elements.playAllBtn.addEventListener('click', playAllCards);
+  }
+  
+  // Deck click - peek at cards (then shuffle)
+  if (elements.deckStack) {
+    elements.deckStack.addEventListener('click', showDeckPopup);
+    elements.deckStack.style.cursor = 'pointer';
+  }
 }
 
-// Play a card from hand
-function playCard(card) {
+// ============================================
+// Core Deckbuilder Mechanics
+// ============================================
+
+function shuffleDeck() {
+  // Fisher-Yates shuffle
+  for (let i = gameState.deck.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [gameState.deck[i], gameState.deck[j]] = [gameState.deck[j], gameState.deck[i]];
+  }
+  console.log('🔀 Deck shuffled');
+}
+
+function drawCards(count) {
+  for (let i = 0; i < count; i++) {
+    drawOneCard();
+  }
+}
+
+function drawOneCard() {
+  // If deck is empty, shuffle discard into deck
+  if (gameState.deck.length === 0) {
+    if (gameState.discard.length === 0) {
+      console.log('No cards to draw!');
+      return false;
+    }
+    
+    // Move discard to deck and shuffle
+    gameState.deck = [...gameState.discard];
+    gameState.discard = [];
+    shuffleDeck();
+    showMessage('♻️ Shuffled discard pile into deck');
+  }
+  
+  // Draw top card
+  const card = gameState.deck.pop();
+  if (card) {
+    gameState.hand.push(card);
+    return true;
+  }
+  return false;
+}
+
+function playCard(card, index, cardElement) {
   if (gameState.phase !== 'play') {
-    showMessage('Can only play cards during Play phase');
+    showMessage('Cannot play cards now');
     return;
   }
   
-  // Clone card to played area
-  const clone = card.cloneNode(true);
-  clone.classList.remove('hand-card');
-  clone.style.width = '72px';
-  clone.style.height = '100px';
-  elements.playedArea.appendChild(clone);
+  // Get the card element if not passed
+  if (!cardElement) {
+    cardElement = elements.handCards.children[index];
+  }
   
-  // Hide original
-  card.style.opacity = '0.3';
-  card.style.pointerEvents = 'none';
-  
-  // Add resources (placeholder - would depend on card type)
-  gameState.resources.credit += 1;
-  updateUI();
-  
-  showMessage('Card played! +1 💰');
+  // Animate the card
+  if (cardElement) {
+    animateCardToPlayed(cardElement, card, () => {
+      // Remove from hand
+      gameState.hand.splice(index, 1);
+      
+      // Add to played pile
+      gameState.played.push(card);
+      
+      // Apply effects
+      if (card.effects) {
+        for (const [resource, amount] of Object.entries(card.effects)) {
+          gameState.resources[resource] = (gameState.resources[resource] || 0) + amount;
+        }
+      }
+      
+      // Update UI
+      updateUI();
+      
+      const effectStr = Object.entries(card.effects)
+        .map(([r, a]) => `+${a} ${getResourceIcon(r)}`)
+        .join(' ');
+      showMessage(`Played ${card.name}: ${effectStr}`);
+    });
+  }
 }
 
-// Buy a card from market
-function buyCard(card) {
-  const cost = parseInt(card.dataset.cost) || 0;
+function animateCardToPlayed(cardElement, card, callback) {
+  // Get positions
+  const cardRect = cardElement.getBoundingClientRect();
+  const playedRect = elements.playedCards.getBoundingClientRect();
+  
+  // Create flying card
+  const flyingCard = document.createElement('div');
+  flyingCard.className = 'card flying-card';
+  flyingCard.innerHTML = `<img src="${card.image}" alt="${card.name}">`;
+  flyingCard.style.cssText = `
+    position: fixed;
+    left: ${cardRect.left}px;
+    top: ${cardRect.top}px;
+    width: ${cardRect.width}px;
+    height: ${cardRect.height}px;
+    z-index: 1000;
+    transition: all 0.3s ease-out;
+    pointer-events: none;
+  `;
+  
+  document.body.appendChild(flyingCard);
+  
+  // Hide original card
+  cardElement.style.opacity = '0';
+  
+  // Calculate target position (center of played area)
+  const targetX = playedRect.left + playedRect.width / 2 - cardRect.width / 2;
+  const targetY = playedRect.top + playedRect.height / 2 - cardRect.height / 2;
+  
+  // Trigger animation
+  requestAnimationFrame(() => {
+    flyingCard.style.left = `${targetX}px`;
+    flyingCard.style.top = `${targetY}px`;
+    flyingCard.style.transform = 'scale(0.8)';
+  });
+  
+  // Cleanup after animation
+  setTimeout(() => {
+    flyingCard.remove();
+    callback();
+  }, 300);
+}
+
+function playAllCards() {
+  if (gameState.hand.length === 0) {
+    showMessage('No cards in hand!');
+    return;
+  }
+  
+  if (gameState.phase !== 'play') {
+    showMessage('Cannot play cards now');
+    return;
+  }
+  
+  // Play all cards with staggered animation
+  const cardsToPlay = [...gameState.hand];
+  let delay = 0;
+  
+  cardsToPlay.forEach((card, index) => {
+    setTimeout(() => {
+      const cardElement = elements.handCards.children[0]; // Always first since we're removing
+      if (cardElement && gameState.hand.length > 0) {
+        playCard(gameState.hand[0], 0, cardElement);
+      }
+    }, delay);
+    delay += 150; // Stagger each card
+  });
+}
+
+function buyCard(marketCard) {
+  const cost = parseInt(marketCard.dataset.cost) || 0;
   
   if (gameState.resources.credit < cost) {
-    showMessage(`Not enough credits! Need ${cost} 💰`);
+    showMessage(`Need ${cost} 💰 (have ${gameState.resources.credit})`);
     return;
   }
   
+  // Deduct cost
   gameState.resources.credit -= cost;
-  updateUI();
   
-  // Visual feedback
-  card.style.transform = 'scale(0.9)';
-  setTimeout(() => {
-    card.style.transform = '';
-  }, 200);
+  // Determine card type from image src
+  const imgSrc = marketCard.querySelector('img').src;
+  let cardType = null;
   
-  showMessage(`Purchased card for ${cost} 💰`);
-}
-
-// Treat a city
-function treatCity(card) {
-  if (gameState.resources.treat < 1) {
-    showMessage('No treat points! Play treatment cards first.');
-    return;
+  for (const [key, value] of Object.entries(CARD_TYPES)) {
+    if (imgSrc.includes(value.image.split('/').pop())) {
+      cardType = { ...value, id: `${key}-${Date.now()}` };
+      break;
+    }
   }
   
-  gameState.resources.treat -= 1;
+  if (cardType) {
+    // Add to discard pile (goes there immediately in most deckbuilders)
+    gameState.discard.push(cardType);
+    showMessage(`Bought ${cardType.name} for ${cost} 💰 → Discard`);
+  }
+  
   updateUI();
-  
-  // Visual feedback
-  card.style.boxShadow = '0 0 20px rgba(76, 175, 80, 0.8)';
-  setTimeout(() => {
-    card.style.boxShadow = '';
-  }, 500);
-  
-  showMessage('City treated! 🩺');
 }
 
-// End turn
-function endTurn() {
-  gameState.turn += 1;
-  gameState.phase = 'play';
+function finishTurn() {
+  // Stop autoplay if running
+  if (gameState.autoplayInterval) {
+    toggleAutoplay();
+  }
+  
+  // Animate played cards to discard pile
+  const playedCardElements = elements.playedCards.querySelectorAll('.card');
+  const handCardElements = elements.handCards.querySelectorAll('.card');
+  const allCards = [...playedCardElements, ...handCardElements];
+  
+  if (allCards.length > 0) {
+    animateCardsToDiscard(allCards, () => {
+      completeFinishTurn();
+    });
+  } else {
+    completeFinishTurn();
+  }
+}
+
+function completeFinishTurn() {
+  // Move played cards to discard
+  gameState.discard.push(...gameState.played);
+  gameState.played = [];
+  
+  // Move remaining hand cards to discard
+  gameState.discard.push(...gameState.hand);
+  gameState.hand = [];
+  
+  // Reset resources
   gameState.resources = { credit: 0, treat: 0, scout: 0 };
   
-  // Reset hand cards
-  elements.handCards.forEach(card => {
-    card.style.opacity = '1';
-    card.style.pointerEvents = 'auto';
-  });
+  // Draw new hand
+  drawCards(5);
   
-  // Clear played area
-  elements.playedArea.innerHTML = '';
+  // Increment turn
+  gameState.turn++;
   
   updateUI();
-  showMessage(`Turn ${gameState.turn} begins!`);
+  showMessage(`Turn ${gameState.turn} - Drew ${gameState.hand.length} cards`);
 }
 
-// Undo (placeholder)
-function undo() {
-  showMessage('Undo not implemented yet');
+function animateCardsToDiscard(cardElements, callback) {
+  const discardRect = elements.discardStack.getBoundingClientRect();
+  const targetX = discardRect.left + discardRect.width / 2;
+  const targetY = discardRect.top + discardRect.height / 2;
+  
+  let completed = 0;
+  const total = cardElements.length;
+  
+  cardElements.forEach((cardEl, index) => {
+    const cardRect = cardEl.getBoundingClientRect();
+    
+    // Create flying card
+    const flyingCard = cardEl.cloneNode(true);
+    flyingCard.style.cssText = `
+      position: fixed;
+      left: ${cardRect.left}px;
+      top: ${cardRect.top}px;
+      width: ${cardRect.width}px;
+      height: ${cardRect.height}px;
+      z-index: 1000;
+      transition: all 0.3s ease-out;
+      pointer-events: none;
+    `;
+    document.body.appendChild(flyingCard);
+    
+    // Hide original
+    cardEl.style.opacity = '0';
+    
+    // Stagger the animations
+    setTimeout(() => {
+      flyingCard.style.left = `${targetX - cardRect.width / 2}px`;
+      flyingCard.style.top = `${targetY - cardRect.height / 2}px`;
+      flyingCard.style.transform = 'scale(0.5) rotate(10deg)';
+      flyingCard.style.opacity = '0.7';
+      
+      setTimeout(() => {
+        flyingCard.remove();
+        completed++;
+        if (completed === total) {
+          callback();
+        }
+      }, 300);
+    }, index * 50);
+  });
+  
+  // Fallback if no cards
+  if (total === 0) {
+    callback();
+  }
 }
 
-// Update UI
+// ============================================
+// Autoplay
+// ============================================
+
+function toggleAutoplay() {
+  if (gameState.autoplayInterval) {
+    // Stop autoplay
+    clearInterval(gameState.autoplayInterval);
+    gameState.autoplayInterval = null;
+    if (elements.autoplayBtn) {
+      elements.autoplayBtn.textContent = '🤖 Autoplay';
+      elements.autoplayBtn.classList.remove('active');
+    }
+    showMessage('Autoplay stopped');
+  } else {
+    // Start autoplay
+    gameState.autoplayInterval = setInterval(autoplayStep, 800);
+    if (elements.autoplayBtn) {
+      elements.autoplayBtn.textContent = '⏹️ Stop';
+      elements.autoplayBtn.classList.add('active');
+    }
+    showMessage('Autoplay started...');
+  }
+}
+
+function autoplayStep() {
+  // If hand has cards, play one randomly
+  if (gameState.hand.length > 0) {
+    const randomIndex = Math.floor(Math.random() * gameState.hand.length);
+    const cardElement = elements.handCards.children[randomIndex];
+    playCard(gameState.hand[randomIndex], randomIndex, cardElement);
+  } 
+  // If hand is empty, maybe buy something or finish turn
+  else {
+    // Try to buy a random affordable card
+    const affordableCards = Array.from(elements.marketCards).filter(card => {
+      const cost = parseInt(card.dataset.cost) || 0;
+      return cost <= gameState.resources.credit;
+    });
+    
+    if (affordableCards.length > 0 && Math.random() > 0.3) {
+      const randomCard = affordableCards[Math.floor(Math.random() * affordableCards.length)];
+      buyCard(randomCard);
+    } else {
+      // Finish turn
+      finishTurn();
+    }
+  }
+}
+
+// ============================================
+// UI Updates
+// ============================================
+
 function updateUI() {
+  // Turn info
   elements.turnCounter.textContent = `Turn ${gameState.turn}`;
   elements.phaseIndicator.textContent = `${gameState.phase} Phase`;
+  
+  // Resources
   elements.creditResource.textContent = gameState.resources.credit;
   elements.treatResource.textContent = gameState.resources.treat;
   elements.scoutResource.textContent = gameState.resources.scout;
+  
+  // Render hand
+  renderHand();
+  
+  // Render played cards
+  renderPlayed();
+  
+  // Update deck count
+  elements.deckCount.textContent = gameState.deck.length;
+  
+  // Update discard count
+  elements.discardCount.textContent = gameState.discard.length;
+  
+  // Update discard pile visual
+  updateDiscardVisual();
 }
 
-// Show temporary message
+function renderHand() {
+  elements.handCards.innerHTML = '';
+  
+  gameState.hand.forEach((card, index) => {
+    const cardEl = createCardElement(card);
+    cardEl.classList.add('hand-card');
+    cardEl.addEventListener('click', (e) => playCard(card, index, cardEl));
+    elements.handCards.appendChild(cardEl);
+  });
+}
+
+function renderPlayed() {
+  elements.playedCards.innerHTML = '';
+  
+  gameState.played.forEach(card => {
+    const cardEl = createCardElement(card);
+    cardEl.style.width = '72px';
+    cardEl.style.height = '100px';
+    cardEl.style.cursor = 'default';
+    elements.playedCards.appendChild(cardEl);
+  });
+}
+
+function createCardElement(card) {
+  const cardEl = document.createElement('div');
+  cardEl.className = 'card';
+  cardEl.innerHTML = `<img src="${card.image}" alt="${card.name}">`;
+  return cardEl;
+}
+
+function updateDiscardVisual() {
+  if (gameState.discard.length > 0) {
+    elements.discardStack.classList.remove('empty');
+    
+    // Create messy pile of cards
+    let html = '<div class="discard-pile-cards">';
+    
+    // Show up to 5 cards in a messy arrangement (older cards underneath)
+    const showCount = Math.min(gameState.discard.length, 5);
+    const startIndex = Math.max(0, gameState.discard.length - showCount);
+    
+    for (let i = startIndex; i < gameState.discard.length; i++) {
+      const card = gameState.discard[i];
+      const isTop = i === gameState.discard.length - 1;
+      const depth = i - startIndex;
+      
+      // Random rotation and offset for messy look (except top card)
+      const rotation = isTop ? 0 : (Math.random() - 0.5) * 20;
+      const offsetX = isTop ? 0 : (Math.random() - 0.5) * 8;
+      const offsetY = isTop ? 0 : (Math.random() - 0.5) * 8;
+      
+      html += `
+        <div class="discard-card ${isTop ? 'top-card' : ''}" 
+             style="transform: rotate(${rotation}deg) translate(${offsetX}px, ${offsetY}px); z-index: ${depth};">
+          <img src="${card.image}" alt="${card.name}">
+        </div>
+      `;
+    }
+    
+    html += '</div>';
+    elements.discardStack.innerHTML = html;
+    
+    // Add click handler to show popup
+    elements.discardStack.style.cursor = 'pointer';
+    elements.discardStack.onclick = showDiscardPopup;
+  } else {
+    elements.discardStack.classList.add('empty');
+    elements.discardStack.innerHTML = '<div class="empty-slot"></div>';
+    elements.discardStack.onclick = null;
+    elements.discardStack.style.cursor = 'default';
+  }
+}
+
+function showDiscardPopup() {
+  if (gameState.discard.length === 0) return;
+  
+  // Create overlay
+  const overlay = document.createElement('div');
+  overlay.className = 'discard-popup-overlay';
+  overlay.onclick = () => overlay.remove();
+  
+  // Create popup
+  const popup = document.createElement('div');
+  popup.className = 'discard-popup';
+  popup.onclick = (e) => e.stopPropagation();
+  
+  // Header
+  popup.innerHTML = `
+    <div class="discard-popup-header">
+      <h3>Discard Pile (${gameState.discard.length} cards)</h3>
+      <button class="discard-popup-close" onclick="this.closest('.discard-popup-overlay').remove()">✕</button>
+    </div>
+    <div class="discard-popup-cards"></div>
+  `;
+  
+  const cardsContainer = popup.querySelector('.discard-popup-cards');
+  
+  // Show all cards (newest first)
+  [...gameState.discard].reverse().forEach(card => {
+    const cardEl = document.createElement('div');
+    cardEl.className = 'card discard-popup-card';
+    cardEl.innerHTML = `<img src="${card.image}" alt="${card.name}">`;
+    cardsContainer.appendChild(cardEl);
+  });
+  
+  overlay.appendChild(popup);
+  document.body.appendChild(overlay);
+  
+  // Close on ESC
+  const escHandler = (e) => {
+    if (e.key === 'Escape') {
+      overlay.remove();
+      document.removeEventListener('keydown', escHandler);
+    }
+  };
+  document.addEventListener('keydown', escHandler);
+}
+
+function showDeckPopup() {
+  if (gameState.deck.length === 0) {
+    showMessage('Deck is empty!');
+    return;
+  }
+  
+  // Create overlay
+  const overlay = document.createElement('div');
+  overlay.className = 'discard-popup-overlay deck-popup-overlay';
+  
+  // Shuffle deck when closing
+  const closeAndShuffle = () => {
+    overlay.remove();
+    shuffleDeck();
+    showMessage('🔀 Deck shuffled after peeking');
+  };
+  
+  overlay.onclick = closeAndShuffle;
+  
+  // Create popup
+  const popup = document.createElement('div');
+  popup.className = 'discard-popup deck-popup';
+  popup.onclick = (e) => e.stopPropagation();
+  
+  // Header with warning
+  popup.innerHTML = `
+    <div class="discard-popup-header">
+      <h3>👁️ Peek at Deck (${gameState.deck.length} cards)</h3>
+      <button class="discard-popup-close">✕</button>
+    </div>
+    <div class="deck-warning">⚠️ Deck will be shuffled when you close this</div>
+    <div class="discard-popup-cards"></div>
+  `;
+  
+  popup.querySelector('.discard-popup-close').onclick = closeAndShuffle;
+  
+  const cardsContainer = popup.querySelector('.discard-popup-cards');
+  
+  // Show all cards in deck order (top to bottom)
+  [...gameState.deck].reverse().forEach((card, index) => {
+    const cardEl = document.createElement('div');
+    cardEl.className = 'card discard-popup-card';
+    cardEl.innerHTML = `
+      <img src="${card.image}" alt="${card.name}">
+      <span class="deck-position">${index + 1}</span>
+    `;
+    cardsContainer.appendChild(cardEl);
+  });
+  
+  overlay.appendChild(popup);
+  document.body.appendChild(overlay);
+}
+
+function getResourceIcon(resource) {
+  const icons = { credit: '💰', treat: '🩺', scout: '🔭', cure: '✨', special: '⚡' };
+  return icons[resource] || resource;
+}
+
+// ============================================
+// Card Preview
+// ============================================
+
+let currentPreview = null;
+
+function showCardPreview(card, event) {
+  hideCardPreview();
+  
+  const img = card.querySelector('img');
+  if (!img) return;
+  
+  const preview = document.createElement('div');
+  preview.className = 'card-preview';
+  preview.innerHTML = `<img src="${img.src}" alt="Preview">`;
+  
+  document.body.appendChild(preview);
+  currentPreview = preview;
+  
+  moveCardPreview(event);
+}
+
+function moveCardPreview(event) {
+  if (!currentPreview) return;
+  
+  const previewWidth = 180;
+  const previewHeight = 250;
+  const padding = 15;
+  
+  // Position below and to the right of cursor
+  let x = event.clientX + padding;
+  let y = event.clientY + padding;
+  
+  // Keep within viewport
+  if (x + previewWidth > window.innerWidth) {
+    x = event.clientX - previewWidth - padding;
+  }
+  if (y + previewHeight > window.innerHeight) {
+    y = event.clientY - previewHeight - padding;
+  }
+  
+  currentPreview.style.left = `${x}px`;
+  currentPreview.style.top = `${y}px`;
+}
+
+function hideCardPreview() {
+  if (currentPreview) {
+    currentPreview.remove();
+    currentPreview = null;
+  }
+}
+
+// ============================================
+// Messages
+// ============================================
+
 function showMessage(text) {
   console.log(text);
   
-  // Create toast notification
+  // Remove existing toast
+  const existing = document.querySelector('.toast-message');
+  if (existing) existing.remove();
+  
   const toast = document.createElement('div');
+  toast.className = 'toast-message';
   toast.style.cssText = `
     position: fixed;
     bottom: 20px;
@@ -181,6 +782,7 @@ function showMessage(text) {
     font-size: 0.9rem;
     z-index: 1000;
     animation: fadeInUp 0.3s ease;
+    white-space: nowrap;
   `;
   toast.textContent = text;
   document.body.appendChild(toast);
@@ -208,6 +810,8 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+// ============================================
 // Start
-document.addEventListener('DOMContentLoaded', init);
+// ============================================
 
+document.addEventListener('DOMContentLoaded', init);

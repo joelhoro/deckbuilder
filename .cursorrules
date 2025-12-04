@@ -12,11 +12,27 @@ All game design and asset documentation lives in `doc/`. **Always consult these 
 |----------|---------|
 | `doc/game-design.md` | **Master spec** - Game mechanics, rules, card systems, win/lose conditions |
 | `doc/card-art-assets.md` | Card artwork guidelines, SVG structure, color schemes |
+| `doc/job-description-*.md` | Agent-specific instructions and responsibilities |
 
 When working on:
 - **Game logic** → Read `doc/game-design.md`
 - **UI/Cards/Visuals** → Read `doc/card-art-assets.md`
 - **Both** → Read both docs first
+
+## 🤖 Agent Job Descriptions
+
+**Every agent working on this project MUST:**
+
+1. **Create a job description document** at `doc/job-description-{role}.md` where `{role}` describes your function (e.g., `game-logic`, `ui-design`, `card-art`)
+2. **Read existing job descriptions** to understand what other agents have done
+3. **Update your job description** as you work, documenting:
+   - What you're responsible for
+   - Key decisions you've made
+   - Current state of your work
+   - Known issues or TODOs
+   - Instructions for future agents continuing your work
+
+This creates continuity between sessions and helps agents understand the project context quickly.
 
 ## 🗂️ Project Structure
 

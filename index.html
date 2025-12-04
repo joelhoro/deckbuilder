@@ -23,135 +23,130 @@
       </div>
     </header>
 
-    <!-- Main Game Area -->
-    <main class="game-board">
-      
-      <!-- City Columns -->
-      <section class="city-area">
-        <h2>Cities</h2>
-        <div class="city-columns">
-          
-          <!-- Column 1 - Mild -->
-          <div class="city-column" data-severity="mild">
-            <div class="column-header">
-              <span class="severity-label">Mild</span>
-              <span class="severity-icon">🟢</span>
+    <!-- Cities Area (left tall section) -->
+    <section class="city-area">
+      <h2>Cities</h2>
+      <div class="city-columns">
+        <!-- Column 1 - Mild -->
+        <div class="city-column" data-severity="mild">
+          <div class="column-deck">
+            <div class="card card-back stacked">
+              <img src="assets/cards/special/card-back.svg" alt="Deck">
             </div>
-            <div class="visible-rows">
-              <div class="card-slot row-3">
-                <div class="card city-card" data-color="blue">
-                  <img src="assets/cards/city-cards/city-blue.svg" alt="City">
-                </div>
-              </div>
-              <div class="card-slot row-2 empty"></div>
-              <div class="card-slot row-1 empty"></div>
-            </div>
-            <div class="column-deck">
-              <div class="card card-back stacked">
-                <img src="assets/cards/special/card-back.svg" alt="Deck">
-              </div>
-              <span class="deck-count">8</span>
-            </div>
+            <span class="deck-count">8</span>
+            <span class="severity-icon">🟢</span>
           </div>
-          
-          <!-- Column 2 - Moderate -->
-          <div class="city-column" data-severity="moderate">
-            <div class="column-header">
-              <span class="severity-label">Moderate</span>
-              <span class="severity-icon">🟡</span>
-            </div>
-            <div class="visible-rows">
-              <div class="card-slot row-3">
-                <div class="card city-card" data-color="red">
-                  <img src="assets/cards/city-cards/city-red.svg" alt="City">
-                </div>
-              </div>
-              <div class="card-slot row-2">
-                <div class="card city-card" data-color="yellow">
-                  <img src="assets/cards/city-cards/city-yellow.svg" alt="City">
-                </div>
-              </div>
-              <div class="card-slot row-1 empty"></div>
-            </div>
-            <div class="column-deck">
-              <div class="card card-back stacked">
-                <img src="assets/cards/special/card-back.svg" alt="Deck">
-              </div>
-              <span class="deck-count">6</span>
-            </div>
-          </div>
-          
-          <!-- Column 3 - Critical -->
-          <div class="city-column" data-severity="critical">
-            <div class="column-header">
-              <span class="severity-label">Critical</span>
-              <span class="severity-icon">🔴</span>
-            </div>
-            <div class="visible-rows">
-              <div class="card-slot row-3">
-                <div class="card city-card" data-color="black">
-                  <img src="assets/cards/city-cards/city-black.svg" alt="City">
-                </div>
-              </div>
-              <div class="card-slot row-2">
-                <div class="card city-card" data-color="red">
-                  <img src="assets/cards/city-cards/city-red.svg" alt="City">
-                </div>
-              </div>
-              <div class="card-slot row-1">
-                <div class="card city-card" data-color="blue">
-                  <img src="assets/cards/city-cards/city-blue.svg" alt="City">
-                </div>
+          <div class="visible-rows">
+            <div class="card-slot row-3">
+              <div class="card city-card" data-color="blue">
+                <img src="assets/cards/city-cards/city-blue.svg" alt="City">
               </div>
             </div>
-            <div class="column-deck">
-              <div class="card card-back stacked">
-                <img src="assets/cards/special/card-back.svg" alt="Deck">
-              </div>
-              <span class="deck-count">4</span>
-            </div>
-          </div>
-          
-        </div>
-      </section>
-
-      <!-- Market Area -->
-      <section class="market-area">
-        <h2>Market</h2>
-        <div class="market-display">
-          <div class="card market-card" data-cost="2">
-            <img src="assets/cards/player-cards/treat-disease.svg" alt="Treat Disease">
-            <span class="cost-badge">💰2</span>
-          </div>
-          <div class="card market-card" data-cost="3">
-            <img src="assets/cards/player-cards/scout.svg" alt="Scout">
-            <span class="cost-badge">💰3</span>
-          </div>
-          <div class="card market-card" data-cost="4">
-            <img src="assets/cards/player-cards/advanced-treatment.svg" alt="Advanced Treatment">
-            <span class="cost-badge">💰4</span>
-          </div>
-          <div class="card market-card" data-cost="5">
-            <img src="assets/cards/player-cards/medic.svg" alt="Medic">
-            <span class="cost-badge">💰5</span>
-          </div>
-          <div class="card market-card" data-cost="4">
-            <img src="assets/cards/player-cards/researcher.svg" alt="Researcher">
-            <span class="cost-badge">💰4</span>
-          </div>
-          <div class="card market-card" data-cost="3">
-            <img src="assets/cards/player-cards/decontamination.svg" alt="Decontamination">
-            <span class="cost-badge">💰3</span>
+            <div class="card-slot row-2 empty"></div>
+            <div class="card-slot row-1 empty"></div>
           </div>
         </div>
-      </section>
+        <!-- Column 2 - Moderate -->
+        <div class="city-column" data-severity="moderate">
+          <div class="column-deck">
+            <div class="card card-back stacked">
+              <img src="assets/cards/special/card-back.svg" alt="Deck">
+            </div>
+            <span class="deck-count">6</span>
+            <span class="severity-icon">🟡</span>
+          </div>
+          <div class="visible-rows">
+            <div class="card-slot row-3">
+              <div class="card city-card" data-color="red">
+                <img src="assets/cards/city-cards/city-red.svg" alt="City">
+              </div>
+            </div>
+            <div class="card-slot row-2">
+              <div class="card city-card" data-color="yellow">
+                <img src="assets/cards/city-cards/city-yellow.svg" alt="City">
+              </div>
+            </div>
+            <div class="card-slot row-1 empty"></div>
+          </div>
+        </div>
+        <!-- Column 3 - Critical -->
+        <div class="city-column" data-severity="critical">
+          <div class="column-deck">
+            <div class="card card-back stacked">
+              <img src="assets/cards/special/card-back.svg" alt="Deck">
+            </div>
+            <span class="deck-count">4</span>
+            <span class="severity-icon">🔴</span>
+          </div>
+          <div class="visible-rows">
+            <div class="card-slot row-3">
+              <div class="card city-card" data-color="black">
+                <img src="assets/cards/city-cards/city-black.svg" alt="City">
+              </div>
+            </div>
+            <div class="card-slot row-2">
+              <div class="card city-card" data-color="red">
+                <img src="assets/cards/city-cards/city-red.svg" alt="City">
+              </div>
+            </div>
+            <div class="card-slot row-1">
+              <div class="card city-card" data-color="blue">
+                <img src="assets/cards/city-cards/city-blue.svg" alt="City">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    </main>
+    <!-- Market Area (top right) -->
+    <section class="market-area">
+      <h2>Market</h2>
+      <div class="market-display">
+        <div class="card market-card" data-cost="2">
+          <img src="assets/cards/player-cards/treat-disease.svg" alt="Treat Disease">
+          <span class="cost-badge">💰2</span>
+        </div>
+        <div class="card market-card" data-cost="3">
+          <img src="assets/cards/player-cards/scout.svg" alt="Scout">
+          <span class="cost-badge">💰3</span>
+        </div>
+        <div class="card market-card" data-cost="4">
+          <img src="assets/cards/player-cards/advanced-treatment.svg" alt="Advanced Treatment">
+          <span class="cost-badge">💰4</span>
+        </div>
+        <div class="card market-card" data-cost="5">
+          <img src="assets/cards/player-cards/medic.svg" alt="Medic">
+          <span class="cost-badge">💰5</span>
+        </div>
+        <div class="card market-card" data-cost="4">
+          <img src="assets/cards/player-cards/researcher.svg" alt="Researcher">
+          <span class="cost-badge">💰4</span>
+        </div>
+        <div class="card market-card" data-cost="3">
+          <img src="assets/cards/player-cards/decontamination.svg" alt="Decontamination">
+          <span class="cost-badge">💰3</span>
+        </div>
+      </div>
+    </section>
 
-    <!-- Player Area -->
-    <footer class="player-area">
-      
-      <!-- Player Deck -->
+    <!-- Played Cards Area (below market) -->
+    <section class="played-section">
+      <div class="played-area">
+        <div class="played-cards">
+          <!-- Cards played this turn appear here -->
+        </div>
+      </div>
+      <div class="power-summary">
+        <div class="power-item credit">💰 <span class="power-credit">0</span></div>
+        <div class="power-item treat">🩺 <span class="power-treat">0</span></div>
+        <div class="power-item scout">🔭 <span class="power-scout">0</span></div>
+        <button class="btn btn-finish-turn">Finish Turn →</button>
+      </div>
+    </section>
+
+    <!-- Player Hand (bottom left/center) -->
+    <section class="hand-section">
       <div class="player-deck">
         <div class="deck-stack">
           <div class="card card-back">
@@ -161,30 +156,19 @@
         <span class="deck-label">Deck</span>
         <span class="deck-count">3</span>
       </div>
-
-      <!-- Player Hand -->
       <div class="player-hand">
         <div class="hand-cards">
-          <div class="card hand-card">
-            <img src="assets/cards/player-cards/credit-card.svg" alt="Credit">
-          </div>
-          <div class="card hand-card">
-            <img src="assets/cards/player-cards/credit-card.svg" alt="Credit">
-          </div>
-          <div class="card hand-card">
-            <img src="assets/cards/player-cards/credit-card.svg" alt="Credit">
-          </div>
-          <div class="card hand-card">
-            <img src="assets/cards/player-cards/treat-disease.svg" alt="Treat Disease">
-          </div>
-          <div class="card hand-card">
-            <img src="assets/cards/player-cards/scout.svg" alt="Scout">
-          </div>
+          <!-- Cards rendered by JS -->
         </div>
-        <span class="hand-label">Your Hand</span>
+        <div class="hand-footer">
+          <span class="hand-label">Your Hand</span>
+          <button class="btn btn-play-all">Play All ⚡</button>
+        </div>
       </div>
+    </section>
 
-      <!-- Discard Pile -->
+    <!-- Discard Pile (bottom right) -->
+    <section class="discard-section">
       <div class="discard-pile">
         <div class="discard-stack empty">
           <div class="empty-slot"></div>
@@ -192,16 +176,7 @@
         <span class="deck-label">Discard</span>
         <span class="deck-count">0</span>
       </div>
-
-      <!-- Played Cards Area -->
-      <div class="played-area">
-        <div class="played-cards">
-          <!-- Cards played this turn appear here -->
-        </div>
-        <span class="played-label">Played</span>
-      </div>
-
-    </footer>
+    </section>
 
     <!-- Game Status / Alerts -->
     <aside class="game-status">
@@ -221,6 +196,7 @@
         </div>
       </div>
       <div class="action-buttons">
+        <button class="btn btn-autoplay">🤖 Autoplay</button>
         <button class="btn btn-primary">End Turn</button>
         <button class="btn btn-secondary">Undo</button>
       </div>
