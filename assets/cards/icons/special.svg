@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+  <defs>
+    <linearGradient id="specialGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF7043"/>
+      <stop offset="100%" style="stop-color:#BF360C"/>
+    </linearGradient>
+    <filter id="specialGlow">
+      <feGaussianBlur stdDeviation="1" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Lightning bolt -->
+  <polygon points="22,2 10,18 18,18 14,38 30,16 21,16 26,2" 
+           fill="url(#specialGrad)" stroke="#BF360C" stroke-width="1" filter="url(#specialGlow)"/>
+  <!-- Inner highlight -->
+  <polygon points="21,6 14,16 18,16 16,28 25,18 20,18 23,6" 
+           fill="#FFAB91" opacity="0.5"/>
+</svg>
+

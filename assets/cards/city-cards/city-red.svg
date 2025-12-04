@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 250">
+  <defs>
+    <linearGradient id="cityRedBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#C62828"/>
+      <stop offset="100%" style="stop-color:#B71C1C"/>
+    </linearGradient>
+    <linearGradient id="redSkyline" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#1a0a0a"/>
+      <stop offset="100%" style="stop-color:#4a1515"/>
+    </linearGradient>
+    <linearGradient id="redDisease" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#EF5350"/>
+      <stop offset="100%" style="stop-color:#C62828"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Card base -->
+  <rect x="2" y="2" width="176" height="246" rx="12" fill="url(#cityRedBg)" stroke="#EF5350" stroke-width="2"/>
+  
+  <!-- Disease color indicator strip -->
+  <rect x="2" y="2" width="36" height="246" rx="12" fill="#C62828"/>
+  <rect x="26" y="2" width="12" height="246" fill="#C62828"/>
+  
+  <!-- Disease icon (virus-like) -->
+  <g transform="translate(4, 12)">
+    <circle cx="16" cy="16" r="12" fill="url(#redDisease)" stroke="#7f0000" stroke-width="1.5"/>
+    <!-- Virus spikes -->
+    <circle cx="16" cy="3" r="3" fill="#EF9A9A"/>
+    <circle cx="16" cy="29" r="3" fill="#EF9A9A"/>
+    <circle cx="3" cy="16" r="3" fill="#EF9A9A"/>
+    <circle cx="29" cy="16" r="3" fill="#EF9A9A"/>
+    <circle cx="7" cy="7" r="2.5" fill="#EF9A9A"/>
+    <circle cx="25" cy="7" r="2.5" fill="#EF9A9A"/>
+    <circle cx="7" cy="25" r="2.5" fill="#EF9A9A"/>
+    <circle cx="25" cy="25" r="2.5" fill="#EF9A9A"/>
+    <!-- Center -->
+    <circle cx="16" cy="16" r="5" fill="#7f0000"/>
+  </g>
+  
+  <!-- City name area -->
+  <rect x="42" y="10" width="128" height="32" rx="4" fill="#7f0000" opacity="0.8"/>
+  <text x="106" y="32" font-family="'Courier New', monospace" font-size="14" font-weight="bold" fill="#FFEBEE" text-anchor="middle">TOKYO</text>
+  
+  <!-- Main illustration area - city skyline -->
+  <rect x="46" y="50" width="120" height="140" rx="6" fill="#1a0505" stroke="#D32F2F" stroke-width="1"/>
+  
+  <!-- Skyline illustration - Asian/Japanese style -->
+  <g transform="translate(46, 50)">
+    <!-- Sky gradient - red/dark -->
+    <rect x="0" y="0" width="120" height="100" fill="url(#redSkyline)" opacity="0.5"/>
+    
+    <!-- Rising sun rays (subtle) -->
+    <line x1="60" y1="140" x2="20" y2="0" stroke="#EF5350" stroke-width="1" opacity="0.15"/>
+    <line x1="60" y1="140" x2="60" y2="0" stroke="#EF5350" stroke-width="1" opacity="0.15"/>
+    <line x1="60" y1="140" x2="100" y2="0" stroke="#EF5350" stroke-width="1" opacity="0.15"/>
+    
+    <!-- Tokyo Tower style -->
+    <polygon points="35,140 25,140 30,50 40,50" fill="#EF5350"/>
+    <polygon points="30,50 40,50 37,30 33,30" fill="#D32F2F"/>
+    <polygon points="33,30 37,30 35,10" fill="#C62828"/>
+    <!-- Cross beams -->
+    <line x1="27" y1="80" x2="43" y2="80" stroke="#B71C1C" stroke-width="2"/>
+    <line x1="28" y1="100" x2="42" y2="100" stroke="#B71C1C" stroke-width="2"/>
+    <line x1="29" y1="120" x2="41" y2="120" stroke="#B71C1C" stroke-width="2"/>
+    
+    <!-- Modern skyscrapers -->
+    <rect x="50" y="55" width="16" height="85" fill="#4a1515"/>
+    <rect x="53" y="60" width="4" height="6" fill="#EF5350" opacity="0.4"/>
+    <rect x="59" y="60" width="4" height="6" fill="#EF5350" opacity="0.5"/>
+    <rect x="53" y="72" width="4" height="6" fill="#EF5350" opacity="0.5"/>
+    <rect x="59" y="72" width="4" height="6" fill="#EF5350" opacity="0.3"/>
+    <rect x="53" y="84" width="4" height="6" fill="#EF5350" opacity="0.4"/>
+    
+    <rect x="70" y="65" width="14" height="75" fill="#5a2020"/>
+    <rect x="73" y="70" width="4" height="6" fill="#EF5350" opacity="0.5"/>
+    <rect x="73" y="82" width="4" height="6" fill="#EF5350" opacity="0.4"/>
+    <rect x="73" y="94" width="4" height="6" fill="#EF5350" opacity="0.3"/>
+    
+    <!-- Pagoda silhouette -->
+    <rect x="88" y="95" width="26" height="45" fill="#4a1515"/>
+    <!-- Tiered roofs -->
+    <polygon points="88,95 114,95 118,90 84,90" fill="#5a2020"/>
+    <polygon points="90,80 112,80 116,75 86,75" fill="#4a1515"/>
+    <polygon points="92,65 110,65 114,60 88,60" fill="#5a2020"/>
+    <polygon points="96,52 106,52 108,48 94,48" fill="#4a1515"/>
+    <!-- Spire -->
+    <line x1="101" y1="48" x2="101" y2="35" stroke="#C62828" stroke-width="2"/>
+    
+    <!-- Small building -->
+    <rect x="5" y="100" width="15" height="40" fill="#4a1515"/>
+    <rect x="8" y="105" width="4" height="6" fill="#EF5350" opacity="0.4"/>
+    <rect x="13" y="105" width="4" height="6" fill="#EF5350" opacity="0.3"/>
+  </g>
+  
+  <!-- Disease type label -->
+  <rect x="46" y="195" width="120" height="40" rx="4" fill="#7f0000" opacity="0.8"/>
+  <text x="106" y="212" font-family="'Courier New', monospace" font-size="10" fill="#EF9A9A" text-anchor="middle">DISEASE TYPE</text>
+  <text x="106" y="228" font-family="'Courier New', monospace" font-size="12" font-weight="bold" fill="#FFEBEE" text-anchor="middle">🔴 RED CONTAGION</text>
+  
+  <!-- Card type indicator -->
+  <text x="106" y="244" font-family="'Courier New', monospace" font-size="8" fill="#EF5350" text-anchor="middle">CITY</text>
+</svg>
+

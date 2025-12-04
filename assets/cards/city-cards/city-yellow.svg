@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 250">
+  <defs>
+    <linearGradient id="cityYellowBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F9A825"/>
+      <stop offset="100%" style="stop-color:#F57F17"/>
+    </linearGradient>
+    <linearGradient id="yellowSkyline" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#E65100"/>
+      <stop offset="50%" style="stop-color:#FF8F00"/>
+      <stop offset="100%" style="stop-color:#FFB300"/>
+    </linearGradient>
+    <linearGradient id="yellowDisease" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFEE58"/>
+      <stop offset="100%" style="stop-color:#FBC02D"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Card base -->
+  <rect x="2" y="2" width="176" height="246" rx="12" fill="url(#cityYellowBg)" stroke="#FFCA28" stroke-width="2"/>
+  
+  <!-- Disease color indicator strip -->
+  <rect x="2" y="2" width="36" height="246" rx="12" fill="#F9A825"/>
+  <rect x="26" y="2" width="12" height="246" fill="#F9A825"/>
+  
+  <!-- Disease icon (virus-like) -->
+  <g transform="translate(4, 12)">
+    <circle cx="16" cy="16" r="12" fill="url(#yellowDisease)" stroke="#E65100" stroke-width="1.5"/>
+    <!-- Virus spikes -->
+    <circle cx="16" cy="3" r="3" fill="#FFEE58"/>
+    <circle cx="16" cy="29" r="3" fill="#FFEE58"/>
+    <circle cx="3" cy="16" r="3" fill="#FFEE58"/>
+    <circle cx="29" cy="16" r="3" fill="#FFEE58"/>
+    <circle cx="7" cy="7" r="2.5" fill="#FFEE58"/>
+    <circle cx="25" cy="7" r="2.5" fill="#FFEE58"/>
+    <circle cx="7" cy="25" r="2.5" fill="#FFEE58"/>
+    <circle cx="25" cy="25" r="2.5" fill="#FFEE58"/>
+    <!-- Center -->
+    <circle cx="16" cy="16" r="5" fill="#E65100"/>
+  </g>
+  
+  <!-- City name area -->
+  <rect x="42" y="10" width="128" height="32" rx="4" fill="#E65100" opacity="0.8"/>
+  <text x="106" y="32" font-family="'Courier New', monospace" font-size="14" font-weight="bold" fill="#FFF8E1" text-anchor="middle">LAGOS</text>
+  
+  <!-- Main illustration area - city skyline -->
+  <rect x="46" y="50" width="120" height="140" rx="6" fill="#3E2723" stroke="#F9A825" stroke-width="1"/>
+  
+  <!-- Skyline illustration - African/tropical city -->
+  <g transform="translate(46, 50)">
+    <!-- Sky gradient - sunset -->
+    <rect x="0" y="0" width="120" height="100" fill="url(#yellowSkyline)" opacity="0.4"/>
+    
+    <!-- Sun -->
+    <circle cx="60" cy="30" r="18" fill="#FFEE58" opacity="0.9"/>
+    <circle cx="60" cy="30" r="14" fill="#FFD54F"/>
+    
+    <!-- Buildings - more varied, African city style -->
+    <rect x="5" y="80" width="18" height="60" fill="#795548"/>
+    <rect x="8" y="85" width="5" height="8" fill="#FFCA28" opacity="0.5"/>
+    <rect x="14" y="85" width="5" height="8" fill="#FFCA28" opacity="0.3"/>
+    <rect x="8" y="98" width="5" height="8" fill="#FFCA28" opacity="0.4"/>
+    
+    <!-- Tall modern building -->
+    <rect x="26" y="55" width="16" height="85" fill="#5D4037"/>
+    <rect x="29" y="60" width="4" height="6" fill="#FFCA28" opacity="0.5"/>
+    <rect x="35" y="60" width="4" height="6" fill="#FFCA28" opacity="0.4"/>
+    <rect x="29" y="72" width="4" height="6" fill="#FFCA28" opacity="0.6"/>
+    <rect x="35" y="72" width="4" height="6" fill="#FFCA28" opacity="0.3"/>
+    <rect x="29" y="84" width="4" height="6" fill="#FFCA28" opacity="0.4"/>
+    
+    <!-- Mosque/dome style -->
+    <rect x="48" y="75" width="24" height="65" fill="#6D4C41"/>
+    <ellipse cx="60" cy="75" rx="12" ry="10" fill="#8D6E63"/>
+    <ellipse cx="60" cy="68" rx="4" ry="8" fill="#A1887F"/>
+    <rect x="51" y="85" width="6" height="10" fill="#FFCA28" opacity="0.4"/>
+    <rect x="63" y="85" width="6" height="10" fill="#FFCA28" opacity="0.5"/>
+    
+    <!-- Palm tree silhouette -->
+    <rect x="80" y="100" width="4" height="40" fill="#3E2723"/>
+    <ellipse cx="82" cy="95" rx="15" ry="8" fill="#4E342E"/>
+    <path d="M82 88 Q75 80 68 85" stroke="#3E2723" stroke-width="3" fill="none"/>
+    <path d="M82 88 Q89 80 96 85" stroke="#3E2723" stroke-width="3" fill="none"/>
+    <path d="M82 88 Q82 75 82 70" stroke="#3E2723" stroke-width="3" fill="none"/>
+    
+    <!-- Small buildings -->
+    <rect x="98" y="90" width="20" height="50" fill="#5D4037"/>
+    <rect x="101" y="95" width="6" height="8" fill="#FFCA28" opacity="0.5"/>
+    <rect x="109" y="95" width="6" height="8" fill="#FFCA28" opacity="0.4"/>
+  </g>
+  
+  <!-- Disease type label -->
+  <rect x="46" y="195" width="120" height="40" rx="4" fill="#E65100" opacity="0.8"/>
+  <text x="106" y="212" font-family="'Courier New', monospace" font-size="10" fill="#FFE082" text-anchor="middle">DISEASE TYPE</text>
+  <text x="106" y="228" font-family="'Courier New', monospace" font-size="12" font-weight="bold" fill="#FFF8E1" text-anchor="middle">🟡 YELLOW BLIGHT</text>
+  
+  <!-- Card type indicator -->
+  <text x="106" y="244" font-family="'Courier New', monospace" font-size="8" fill="#FFEE58" text-anchor="middle">CITY</text>
+</svg>
+

@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 250">
+  <defs>
+    <linearGradient id="cardBgQuarantine" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+    <linearGradient id="quarantineAccent" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF8A65"/>
+      <stop offset="100%" style="stop-color:#D84315"/>
+    </linearGradient>
+    <linearGradient id="hazmatSuit" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFF59D"/>
+      <stop offset="100%" style="stop-color:#FBC02D"/>
+    </linearGradient>
+    <linearGradient id="iconStripQuar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#4a2a1a"/>
+      <stop offset="100%" style="stop-color:#1a1a2e"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Card base -->
+  <rect x="2" y="2" width="176" height="246" rx="12" fill="url(#cardBgQuarantine)" stroke="#D84315" stroke-width="2"/>
+  
+  <!-- Icon strip (left side) -->
+  <rect x="2" y="2" width="36" height="246" rx="12" fill="url(#iconStripQuar)"/>
+  <rect x="26" y="2" width="12" height="246" fill="url(#iconStripQuar)"/>
+  
+  <!-- Shield + Special icons in strip -->
+  <g transform="translate(4, 10)">
+    <path d="M16 4 L6 10 L6 20 Q6 28 16 32 Q26 28 26 20 L26 10 Z" fill="#FF8A65" stroke="#BF360C" stroke-width="1"/>
+    <path d="M16 8 L16 28" stroke="#fff" stroke-width="2" opacity="0.5"/>
+    <path d="M10 16 L22 16" stroke="#fff" stroke-width="2" opacity="0.5"/>
+  </g>
+  <g transform="translate(4, 44)">
+    <polygon points="16,2 8,14 14,14 12,28 22,12 16,12 18,2" fill="#FF7043" stroke="#BF360C" stroke-width="0.5"/>
+  </g>
+  
+  <!-- Card title area -->
+  <rect x="42" y="10" width="128" height="32" rx="4" fill="#4a2a1a" opacity="0.8"/>
+  <text x="106" y="28" font-family="'Courier New', monospace" font-size="10" font-weight="bold" fill="#FF8A65" text-anchor="middle">QUARANTINE</text>
+  <text x="106" y="40" font-family="'Courier New', monospace" font-size="10" font-weight="bold" fill="#FF8A65" text-anchor="middle">SPECIALIST</text>
+  
+  <!-- Cost indicator -->
+  <g transform="translate(150, 8)">
+    <circle cx="12" cy="12" r="10" fill="#FFD93D" stroke="#B8860B" stroke-width="1.5"/>
+    <text x="12" y="16" font-family="'Courier New', monospace" font-size="12" font-weight="bold" fill="#5D4037" text-anchor="middle">5</text>
+  </g>
+  
+  <!-- Main illustration area -->
+  <rect x="46" y="50" width="120" height="100" rx="6" fill="#0d0d1a" stroke="#D84315" stroke-width="1"/>
+  
+  <!-- Hazmat suit person illustration -->
+  <g transform="translate(66, 55)">
+    <!-- Body suit -->
+    <path d="M40 35 L20 45 L15 85 L65 85 L60 45 Z" fill="url(#hazmatSuit)" stroke="#F57F17" stroke-width="1"/>
+    
+    <!-- Hood -->
+    <ellipse cx="40" cy="25" rx="22" ry="24" fill="url(#hazmatSuit)" stroke="#F57F17" stroke-width="1"/>
+    
+    <!-- Visor -->
+    <ellipse cx="40" cy="22" rx="16" ry="12" fill="#1a1a2e" stroke="#333" stroke-width="2"/>
+    <ellipse cx="40" cy="22" rx="14" ry="10" fill="#263238" opacity="0.8"/>
+    <!-- Visor reflection -->
+    <path d="M28 18 Q32 14 40 15 Q48 14 52 18" stroke="#4FC3F7" stroke-width="1.5" fill="none" opacity="0.5"/>
+    
+    <!-- Biohazard symbol on chest -->
+    <circle cx="40" cy="60" r="12" fill="#D84315"/>
+    <circle cx="40" cy="60" r="4" fill="#1a1a2e"/>
+    <circle cx="40" cy="52" r="5" fill="none" stroke="#1a1a2e" stroke-width="3"/>
+    <circle cx="34" cy="65" r="5" fill="none" stroke="#1a1a2e" stroke-width="3"/>
+    <circle cx="46" cy="65" r="5" fill="none" stroke="#1a1a2e" stroke-width="3"/>
+    
+    <!-- Arms -->
+    <path d="M20 48 L5 65 L8 68 L22 55" fill="url(#hazmatSuit)" stroke="#F57F17" stroke-width="1"/>
+    <path d="M60 48 L75 65 L72 68 L58 55" fill="url(#hazmatSuit)" stroke="#F57F17" stroke-width="1"/>
+    
+    <!-- Gloves -->
+    <ellipse cx="6" cy="68" rx="5" ry="4" fill="#FF8A65"/>
+    <ellipse cx="74" cy="68" rx="5" ry="4" fill="#FF8A65"/>
+  </g>
+  
+  <!-- Divider line -->
+  <line x1="50" y1="158" x2="166" y2="158" stroke="#FF8A65" stroke-width="1" opacity="0.5"/>
+  
+  <!-- Effect text area -->
+  <rect x="46" y="165" width="120" height="70" rx="4" fill="#0d0d1a" opacity="0.6"/>
+  <text x="106" y="185" font-family="'Courier New', monospace" font-size="11" fill="#e0e0e0" text-anchor="middle">🛡️ PROTECT</text>
+  <text x="106" y="202" font-family="'Courier New', monospace" font-size="9" fill="#888" text-anchor="middle">⚡ SPECIAL: Block the</text>
+  <text x="106" y="215" font-family="'Courier New', monospace" font-size="9" fill="#888" text-anchor="middle">next Epidemic card.</text>
+  <text x="106" y="228" font-family="'Courier New', monospace" font-size="9" fill="#888" text-anchor="middle">Discard after use.</text>
+  
+  <!-- Card type indicator -->
+  <text x="106" y="244" font-family="'Courier New', monospace" font-size="8" fill="#D84315" text-anchor="middle">★ SPECIALIST</text>
+</svg>
+

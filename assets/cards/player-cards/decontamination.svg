@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 250">
+  <defs>
+    <linearGradient id="cardBgDecon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+    <linearGradient id="deconAccent" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#26C6DA"/>
+      <stop offset="100%" style="stop-color:#00838F"/>
+    </linearGradient>
+    <linearGradient id="waterSpray" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E0F7FA"/>
+      <stop offset="100%" style="stop-color:#4DD0E1"/>
+    </linearGradient>
+    <linearGradient id="iconStripDecon" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1a3a3a"/>
+      <stop offset="100%" style="stop-color:#1a1a2e"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Card base -->
+  <rect x="2" y="2" width="176" height="246" rx="12" fill="url(#cardBgDecon)" stroke="#00838F" stroke-width="2"/>
+  
+  <!-- Icon strip (left side) -->
+  <rect x="2" y="2" width="36" height="246" rx="12" fill="url(#iconStripDecon)"/>
+  <rect x="26" y="2" width="12" height="246" fill="url(#iconStripDecon)"/>
+  
+  <!-- Cure icon in strip -->
+  <g transform="translate(4, 10)">
+    <path d="M12 6 L12 12 L8 24 Q7 28 10 29 L22 29 Q25 28 24 24 L20 12 L20 6 Z" 
+          fill="url(#deconAccent)" stroke="#006064" stroke-width="1"/>
+    <rect x="11" y="3" width="10" height="4" rx="1" fill="#4DD0E1"/>
+    <!-- Sparkle -->
+    <path d="M24 8 L26 10 L24 12 L22 10 Z" fill="#E0F7FA"/>
+  </g>
+  
+  <!-- Card title area -->
+  <rect x="42" y="10" width="128" height="32" rx="4" fill="#1a3a3a" opacity="0.8"/>
+  <text x="106" y="28" font-family="'Courier New', monospace" font-size="10" font-weight="bold" fill="#26C6DA" text-anchor="middle">DECONTAMINATION</text>
+  
+  <!-- Cost indicator -->
+  <g transform="translate(150, 8)">
+    <circle cx="12" cy="12" r="10" fill="#FFD93D" stroke="#B8860B" stroke-width="1.5"/>
+    <text x="12" y="16" font-family="'Courier New', monospace" font-size="12" font-weight="bold" fill="#5D4037" text-anchor="middle">2</text>
+  </g>
+  
+  <!-- Main illustration area -->
+  <rect x="46" y="50" width="120" height="100" rx="6" fill="#0d0d1a" stroke="#00838F" stroke-width="1"/>
+  
+  <!-- Decontamination spray illustration -->
+  <g transform="translate(56, 55)">
+    <!-- Spray bottle -->
+    <rect x="25" y="30" width="35" height="55" rx="5" fill="#e8e8e8" stroke="#bbb" stroke-width="1"/>
+    <!-- Bottle label -->
+    <rect x="28" y="45" width="29" height="25" fill="url(#deconAccent)" rx="2"/>
+    <text x="42" y="55" font-family="Arial" font-size="6" fill="#fff" text-anchor="middle">DECON</text>
+    <text x="42" y="63" font-family="Arial" font-size="5" fill="#E0F7FA" text-anchor="middle">SPRAY</text>
+    
+    <!-- Nozzle -->
+    <rect x="30" y="20" width="10" height="12" fill="#666"/>
+    <rect x="32" y="15" width="6" height="8" fill="#888"/>
+    
+    <!-- Trigger -->
+    <path d="M40 22 L55 25 L55 35 L45 38 L40 30 Z" fill="#444" stroke="#333" stroke-width="1"/>
+    
+    <!-- Spray particles -->
+    <circle cx="70" cy="20" r="3" fill="url(#waterSpray)" opacity="0.8"/>
+    <circle cx="78" cy="15" r="2.5" fill="url(#waterSpray)" opacity="0.7"/>
+    <circle cx="85" cy="22" r="2" fill="url(#waterSpray)" opacity="0.6"/>
+    <circle cx="75" cy="28" r="2.5" fill="url(#waterSpray)" opacity="0.7"/>
+    <circle cx="82" cy="32" r="2" fill="url(#waterSpray)" opacity="0.5"/>
+    <circle cx="68" cy="12" r="1.5" fill="url(#waterSpray)" opacity="0.5"/>
+    <circle cx="90" cy="18" r="1.5" fill="url(#waterSpray)" opacity="0.4"/>
+    
+    <!-- Sparkle effects -->
+    <path d="M72 8 L74 10 L72 12 L70 10 Z" fill="#fff" opacity="0.8"/>
+    <path d="M88 28 L90 30 L88 32 L86 30 Z" fill="#fff" opacity="0.6"/>
+  </g>
+  
+  <!-- Divider line -->
+  <line x1="50" y1="158" x2="166" y2="158" stroke="#26C6DA" stroke-width="1" opacity="0.5"/>
+  
+  <!-- Effect text area -->
+  <rect x="46" y="165" width="120" height="70" rx="4" fill="#0d0d1a" opacity="0.6"/>
+  <text x="106" y="185" font-family="'Courier New', monospace" font-size="11" fill="#e0e0e0" text-anchor="middle">✨ CLEANSE</text>
+  <text x="106" y="205" font-family="'Courier New', monospace" font-size="9" fill="#888" text-anchor="middle">Trash 1 Toxic Waste</text>
+  <text x="106" y="218" font-family="'Courier New', monospace" font-size="9" fill="#888" text-anchor="middle">card from your hand</text>
+  <text x="106" y="231" font-family="'Courier New', monospace" font-size="9" fill="#888" text-anchor="middle">or discard pile</text>
+  
+  <!-- Card type indicator -->
+  <text x="106" y="244" font-family="'Courier New', monospace" font-size="8" fill="#00838F" text-anchor="middle">ACTION</text>
+</svg>
+

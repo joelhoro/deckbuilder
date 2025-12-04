@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pandemic Deckbuilder - Card Preview</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@400;700&display=swap');
+    
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #0f0f23 100%);
+      min-height: 100vh;
+      margin: 0;
+      padding: 40px 20px;
+      color: #e0e0e0;
+    }
+    
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      color: #4FC3F7;
+      font-size: 2.5rem;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      margin-bottom: 10px;
+      text-shadow: 0 0 20px rgba(79, 195, 247, 0.5);
+    }
+    
+    .subtitle {
+      text-align: center;
+      color: #888;
+      font-size: 0.9rem;
+      margin-bottom: 40px;
+      letter-spacing: 2px;
+    }
+    
+    h2 {
+      font-family: 'Orbitron', sans-serif;
+      color: #81C784;
+      border-bottom: 2px solid #333;
+      padding-bottom: 10px;
+      margin-top: 50px;
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+    }
+    
+    .card-section {
+      margin-bottom: 60px;
+    }
+    
+    .card-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: flex-start;
+    }
+    
+    .card-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .card {
+      width: 180px;
+      height: 250px;
+      border-radius: 12px;
+      box-shadow: 
+        0 4px 20px rgba(0, 0, 0, 0.5),
+        0 0 40px rgba(79, 195, 247, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .card:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.6),
+        0 0 60px rgba(79, 195, 247, 0.2);
+    }
+    
+    .card-label {
+      font-size: 0.75rem;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .icon-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      background: rgba(255,255,255,0.05);
+      padding: 30px;
+      border-radius: 12px;
+      margin-top: 10px;
+    }
+    
+    .icon-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .icon {
+      width: 60px;
+      height: 60px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 8px;
+      padding: 10px;
+    }
+    
+    .icon-label {
+      font-size: 0.7rem;
+      color: #888;
+      text-transform: uppercase;
+    }
+    
+    .legend {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 30px;
+      margin: 40px 0;
+    }
+    
+    .legend h3 {
+      color: #E040FB;
+      margin-top: 0;
+      font-size: 1rem;
+      letter-spacing: 1px;
+    }
+    
+    .legend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .legend-icon {
+      font-size: 1.5rem;
+    }
+    
+    .legend-text strong {
+      display: block;
+      color: #fff;
+    }
+    
+    .legend-text span {
+      font-size: 0.8rem;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <h1>Pandemic Deckbuilder</h1>
+  <p class="subtitle">Card Art Preview — SVG Assets</p>
+  
+  <div class="legend">
+    <h3>📊 ICONOGRAPHY SYSTEM</h3>
+    <div class="legend-grid">
+      <div class="legend-item">
+        <span class="legend-icon">💰</span>
+        <div class="legend-text">
+          <strong>Credit</strong>
+          <span>Currency for market purchases</span>
+        </div>
+      </div>
+      <div class="legend-item">
+        <span class="legend-icon">🩺</span>
+        <div class="legend-text">
+          <strong>Treat</strong>
+          <span>Treatment power (move cities left)</span>
+        </div>
+      </div>
+      <div class="legend-item">
+        <span class="legend-icon">🔭</span>
+        <div class="legend-text">
+          <strong>Scout</strong>
+          <span>Reveal hidden cities</span>
+        </div>
+      </div>
+      <div class="legend-item">
+        <span class="legend-icon">✨</span>
+        <div class="legend-text">
+          <strong>Cure</strong>
+          <span>Bonus when curing from Column 1</span>
+        </div>
+      </div>
+      <div class="legend-item">
+        <span class="legend-icon">⚡</span>
+        <div class="legend-text">
+          <strong>Special</strong>
+          <span>Activate specialist abilities</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-section">
+    <h2>🎨 ICONS</h2>
+    <div class="icon-grid">
+      <div class="icon-container">
+        <img src="icons/credit.svg" alt="Credit" class="icon">
+        <span class="icon-label">Credit</span>
+      </div>
+      <div class="icon-container">
+        <img src="icons/treat.svg" alt="Treat" class="icon">
+        <span class="icon-label">Treat</span>
+      </div>
+      <div class="icon-container">
+        <img src="icons/scout.svg" alt="Scout" class="icon">
+        <span class="icon-label">Scout</span>
+      </div>
+      <div class="icon-container">
+        <img src="icons/cure.svg" alt="Cure" class="icon">
+        <span class="icon-label">Cure</span>
+      </div>
+      <div class="icon-container">
+        <img src="icons/special.svg" alt="Special" class="icon">
+        <span class="icon-label">Special</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-section">
+    <h2>🃏 STARTER DECK CARDS</h2>
+    <div class="card-grid">
+      <div class="card-container">
+        <img src="player-cards/credit-card.svg" alt="Credit Card" class="card">
+        <span class="card-label">Credit (×5)</span>
+      </div>
+      <div class="card-container">
+        <img src="player-cards/treat-disease.svg" alt="Treat Disease" class="card">
+        <span class="card-label">Treat Disease (×2)</span>
+      </div>
+      <div class="card-container">
+        <img src="player-cards/scout.svg" alt="Scout" class="card">
+        <span class="card-label">Scout (×1)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-section">
+    <h2>🛒 MARKET CARDS</h2>
+    <div class="card-grid">
+      <div class="card-container">
+        <img src="player-cards/advanced-treatment.svg" alt="Advanced Treatment" class="card">
+        <span class="card-label">Advanced Treatment</span>
+      </div>
+      <div class="card-container">
+        <img src="player-cards/decontamination.svg" alt="Decontamination" class="card">
+        <span class="card-label">Decontamination</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-section">
+    <h2>⭐ SPECIALISTS</h2>
+    <div class="card-grid">
+      <div class="card-container">
+        <img src="player-cards/medic.svg" alt="Medic" class="card">
+        <span class="card-label">Medic</span>
+      </div>
+      <div class="card-container">
+        <img src="player-cards/researcher.svg" alt="Researcher" class="card">
+        <span class="card-label">Researcher</span>
+      </div>
+      <div class="card-container">
+        <img src="player-cards/quarantine-specialist.svg" alt="Quarantine Specialist" class="card">
+        <span class="card-label">Quarantine Specialist</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-section">
+    <h2>🏙️ CITY CARDS (4 DISEASE COLORS)</h2>
+    <div class="card-grid">
+      <div class="card-container">
+        <img src="city-cards/city-blue.svg" alt="Blue City" class="card">
+        <span class="card-label">Blue Fever</span>
+      </div>
+      <div class="card-container">
+        <img src="city-cards/city-yellow.svg" alt="Yellow City" class="card">
+        <span class="card-label">Yellow Blight</span>
+      </div>
+      <div class="card-container">
+        <img src="city-cards/city-black.svg" alt="Black City" class="card">
+        <span class="card-label">Black Plague</span>
+      </div>
+      <div class="card-container">
+        <img src="city-cards/city-red.svg" alt="Red City" class="card">
+        <span class="card-label">Red Contagion</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-section">
+    <h2>☠️ SPECIAL CARDS</h2>
+    <div class="card-grid">
+      <div class="card-container">
+        <img src="special/toxic-waste.svg" alt="Toxic Waste" class="card">
+        <span class="card-label">Toxic Waste</span>
+      </div>
+      <div class="card-container">
+        <img src="special/epidemic.svg" alt="Epidemic" class="card">
+        <span class="card-label">Epidemic</span>
+      </div>
+      <div class="card-container">
+        <img src="special/card-back.svg" alt="Card Back" class="card">
+        <span class="card-label">Card Back</span>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
+

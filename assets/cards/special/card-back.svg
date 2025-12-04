@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 250">
+  <defs>
+    <linearGradient id="cardBackBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="50%" style="stop-color:#16213e"/>
+      <stop offset="100%" style="stop-color:#0f0f23"/>
+    </linearGradient>
+    <linearGradient id="innerFrame" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2d2d5a"/>
+      <stop offset="100%" style="stop-color:#1a1a3a"/>
+    </linearGradient>
+    <pattern id="gridPattern" patternUnits="userSpaceOnUse" width="20" height="20">
+      <rect width="20" height="20" fill="none"/>
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#3d3d6a" stroke-width="0.5" opacity="0.3"/>
+    </pattern>
+    <linearGradient id="dnaStrand" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#4FC3F7"/>
+      <stop offset="25%" style="stop-color:#81C784"/>
+      <stop offset="50%" style="stop-color:#FFD54F"/>
+      <stop offset="75%" style="stop-color:#E040FB"/>
+      <stop offset="100%" style="stop-color:#EF5350"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Card base -->
+  <rect x="2" y="2" width="176" height="246" rx="12" fill="url(#cardBackBg)" stroke="#3d3d6a" stroke-width="2"/>
+  
+  <!-- Inner decorative frame -->
+  <rect x="10" y="10" width="160" height="230" rx="8" fill="none" stroke="#3d3d6a" stroke-width="1"/>
+  <rect x="15" y="15" width="150" height="220" rx="6" fill="url(#innerFrame)" stroke="#4d4d7a" stroke-width="0.5"/>
+  
+  <!-- Grid pattern overlay -->
+  <rect x="15" y="15" width="150" height="220" rx="6" fill="url(#gridPattern)"/>
+  
+  <!-- Central DNA helix design -->
+  <g transform="translate(50, 40)">
+    <!-- Left strand -->
+    <path d="M20 0 
+             Q35 15 20 30 
+             Q5 45 20 60 
+             Q35 75 20 90 
+             Q5 105 20 120 
+             Q35 135 20 150 
+             Q5 165 20 170" 
+          stroke="url(#dnaStrand)" stroke-width="4" fill="none" stroke-linecap="round"/>
+    
+    <!-- Right strand -->
+    <path d="M60 0 
+             Q45 15 60 30 
+             Q75 45 60 60 
+             Q45 75 60 90 
+             Q75 105 60 120 
+             Q45 135 60 150 
+             Q75 165 60 170" 
+          stroke="url(#dnaStrand)" stroke-width="4" fill="none" stroke-linecap="round"/>
+    
+    <!-- Connecting base pairs -->
+    <line x1="24" y1="15" x2="56" y2="15" stroke="#4FC3F7" stroke-width="2" opacity="0.7"/>
+    <line x1="20" y1="30" x2="60" y2="30" stroke="#4FC3F7" stroke-width="2" opacity="0.6"/>
+    <line x1="24" y1="45" x2="56" y2="45" stroke="#81C784" stroke-width="2" opacity="0.7"/>
+    <line x1="20" y1="60" x2="60" y2="60" stroke="#81C784" stroke-width="2" opacity="0.6"/>
+    <line x1="24" y1="75" x2="56" y2="75" stroke="#FFD54F" stroke-width="2" opacity="0.7"/>
+    <line x1="20" y1="90" x2="60" y2="90" stroke="#FFD54F" stroke-width="2" opacity="0.6"/>
+    <line x1="24" y1="105" x2="56" y2="105" stroke="#E040FB" stroke-width="2" opacity="0.7"/>
+    <line x1="20" y1="120" x2="60" y2="120" stroke="#E040FB" stroke-width="2" opacity="0.6"/>
+    <line x1="24" y1="135" x2="56" y2="135" stroke="#EF5350" stroke-width="2" opacity="0.7"/>
+    <line x1="20" y1="150" x2="60" y2="150" stroke="#EF5350" stroke-width="2" opacity="0.6"/>
+    
+    <!-- Base pair nodes -->
+    <circle cx="24" cy="15" r="3" fill="#4FC3F7"/>
+    <circle cx="56" cy="15" r="3" fill="#4FC3F7"/>
+    <circle cx="24" cy="45" r="3" fill="#81C784"/>
+    <circle cx="56" cy="45" r="3" fill="#81C784"/>
+    <circle cx="24" cy="75" r="3" fill="#FFD54F"/>
+    <circle cx="56" cy="75" r="3" fill="#FFD54F"/>
+    <circle cx="24" cy="105" r="3" fill="#E040FB"/>
+    <circle cx="56" cy="105" r="3" fill="#E040FB"/>
+    <circle cx="24" cy="135" r="3" fill="#EF5350"/>
+    <circle cx="56" cy="135" r="3" fill="#EF5350"/>
+  </g>
+  
+  <!-- Corner decorations -->
+  <g fill="none" stroke="#4d4d7a" stroke-width="1">
+    <!-- Top left -->
+    <path d="M20 30 L20 20 L30 20"/>
+    <path d="M25 35 L25 25 L35 25"/>
+    
+    <!-- Top right -->
+    <path d="M160 30 L160 20 L150 20"/>
+    <path d="M155 35 L155 25 L145 25"/>
+    
+    <!-- Bottom left -->
+    <path d="M20 220 L20 230 L30 230"/>
+    <path d="M25 215 L25 225 L35 225"/>
+    
+    <!-- Bottom right -->
+    <path d="M160 220 L160 230 L150 230"/>
+    <path d="M155 215 L155 225 L145 225"/>
+  </g>
+  
+  <!-- Title at bottom -->
+  <text x="90" y="228" font-family="'Courier New', monospace" font-size="10" fill="#6d6d9a" text-anchor="middle" letter-spacing="4">PANDEMIC</text>
+</svg>
+

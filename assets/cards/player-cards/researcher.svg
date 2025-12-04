@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 250">
+  <defs>
+    <linearGradient id="cardBgResearcher" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+    <linearGradient id="researchAccent" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#64B5F6"/>
+      <stop offset="100%" style="stop-color:#1565C0"/>
+    </linearGradient>
+    <linearGradient id="flaskLiquid" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#81D4FA"/>
+      <stop offset="100%" style="stop-color:#0277BD"/>
+    </linearGradient>
+    <linearGradient id="iconStripResearch" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1a2a4a"/>
+      <stop offset="100%" style="stop-color:#1a1a2e"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Card base -->
+  <rect x="2" y="2" width="176" height="246" rx="12" fill="url(#cardBgResearcher)" stroke="#1565C0" stroke-width="2"/>
+  
+  <!-- Icon strip (left side) -->
+  <rect x="2" y="2" width="36" height="246" rx="12" fill="url(#iconStripResearch)"/>
+  <rect x="26" y="2" width="12" height="246" fill="url(#iconStripResearch)"/>
+  
+  <!-- Credit + Special icons in strip -->
+  <g transform="translate(4, 10)">
+    <circle cx="16" cy="12" r="10" fill="#FFD93D" stroke="#B8860B" stroke-width="1"/>
+    <text x="16" y="16" font-family="Georgia, serif" font-size="10" font-weight="bold" fill="#5D4037" text-anchor="middle">¢</text>
+  </g>
+  <g transform="translate(4, 36)">
+    <polygon points="16,2 8,14 14,14 12,28 22,12 16,12 18,2" fill="#FF7043" stroke="#BF360C" stroke-width="0.5"/>
+  </g>
+  
+  <!-- Card title area -->
+  <rect x="42" y="10" width="128" height="32" rx="4" fill="#1a2a4a" opacity="0.8"/>
+  <text x="106" y="32" font-family="'Courier New', monospace" font-size="13" font-weight="bold" fill="#64B5F6" text-anchor="middle">RESEARCHER</text>
+  
+  <!-- Cost indicator -->
+  <g transform="translate(150, 8)">
+    <circle cx="12" cy="12" r="10" fill="#FFD93D" stroke="#B8860B" stroke-width="1.5"/>
+    <text x="12" y="16" font-family="'Courier New', monospace" font-size="12" font-weight="bold" fill="#5D4037" text-anchor="middle">3</text>
+  </g>
+  
+  <!-- Main illustration area -->
+  <rect x="46" y="50" width="120" height="100" rx="6" fill="#0d0d1a" stroke="#1565C0" stroke-width="1"/>
+  
+  <!-- Researcher illustration - lab equipment -->
+  <g transform="translate(56, 55)">
+    <!-- Flask -->
+    <path d="M30 10 L30 30 L15 75 Q12 85 22 88 L58 88 Q68 85 65 75 L50 30 L50 10 Z" 
+          fill="#e8e8e8" stroke="#999" stroke-width="1.5"/>
+    <!-- Neck band -->
+    <rect x="28" y="8" width="24" height="4" rx="1" fill="#888"/>
+    <!-- Liquid -->
+    <path d="M20 60 Q25 55 40 58 Q55 61 60 60 L65 75 Q68 85 58 88 L22 88 Q12 85 15 75 Z" 
+          fill="url(#flaskLiquid)" opacity="0.8"/>
+    <!-- Bubbles -->
+    <circle cx="30" cy="72" r="3" fill="#B3E5FC" opacity="0.6"/>
+    <circle cx="45" cy="68" r="2" fill="#B3E5FC" opacity="0.5"/>
+    <circle cx="38" cy="78" r="2.5" fill="#B3E5FC" opacity="0.5"/>
+    <!-- Shine -->
+    <path d="M22 40 L22 65" stroke="#fff" stroke-width="2" opacity="0.3"/>
+    
+    <!-- Microscope silhouette -->
+    <rect x="70" y="50" width="25" height="38" rx="2" fill="#333"/>
+    <rect x="75" y="35" width="15" height="20" rx="1" fill="#444"/>
+    <circle cx="82" cy="45" r="6" fill="#1565C0" stroke="#0D47A1" stroke-width="1"/>
+    <rect x="80" y="25" width="5" height="12" fill="#555"/>
+    <ellipse cx="82" cy="24" rx="6" ry="3" fill="#666"/>
+  </g>
+  
+  <!-- Divider line -->
+  <line x1="50" y1="158" x2="166" y2="158" stroke="#64B5F6" stroke-width="1" opacity="0.5"/>
+  
+  <!-- Effect text area -->
+  <rect x="46" y="165" width="120" height="70" rx="4" fill="#0d0d1a" opacity="0.6"/>
+  <text x="106" y="185" font-family="'Courier New', monospace" font-size="11" fill="#e0e0e0" text-anchor="middle">+1 💰 Credit</text>
+  <text x="106" y="202" font-family="'Courier New', monospace" font-size="9" fill="#888" text-anchor="middle">⚡ SPECIAL: Draw 2</text>
+  <text x="106" y="215" font-family="'Courier New', monospace" font-size="9" fill="#888" text-anchor="middle">cards, then discard</text>
+  <text x="106" y="228" font-family="'Courier New', monospace" font-size="9" fill="#888" text-anchor="middle">1 card</text>
+  
+  <!-- Card type indicator -->
+  <text x="106" y="244" font-family="'Courier New', monospace" font-size="8" fill="#1565C0" text-anchor="middle">★ SPECIALIST</text>
+</svg>
+

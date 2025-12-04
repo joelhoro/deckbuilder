@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 250">
+  <defs>
+    <!-- Card background gradient -->
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+    <!-- Gold accent -->
+    <linearGradient id="goldAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD93D"/>
+      <stop offset="50%" style="stop-color:#F9A825"/>
+      <stop offset="100%" style="stop-color:#FF8F00"/>
+    </linearGradient>
+    <!-- Icon strip -->
+    <linearGradient id="iconStrip" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#2d2d44"/>
+      <stop offset="100%" style="stop-color:#1a1a2e"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Card base -->
+  <rect x="2" y="2" width="176" height="246" rx="12" fill="url(#cardBg)" stroke="#3d3d5c" stroke-width="2"/>
+  
+  <!-- Icon strip (left side) -->
+  <rect x="2" y="2" width="36" height="246" rx="12" fill="url(#iconStrip)"/>
+  <rect x="26" y="2" width="12" height="246" fill="url(#iconStrip)"/>
+  
+  <!-- Credit icon in strip -->
+  <g transform="translate(4, 12)">
+    <circle cx="16" cy="16" r="12" fill="url(#goldAccent)" stroke="#B8860B" stroke-width="1.5"/>
+    <circle cx="16" cy="16" r="8" fill="none" stroke="#B8860B" stroke-width="0.75" opacity="0.5"/>
+    <text x="16" y="21" font-family="Georgia, serif" font-size="12" font-weight="bold" fill="#5D4037" text-anchor="middle">¢</text>
+  </g>
+  
+  <!-- Card title area -->
+  <rect x="42" y="10" width="128" height="32" rx="4" fill="#2d2d44" opacity="0.8"/>
+  <text x="106" y="32" font-family="'Courier New', monospace" font-size="14" font-weight="bold" fill="#FFD93D" text-anchor="middle">CREDIT</text>
+  
+  <!-- Main illustration area -->
+  <rect x="46" y="50" width="120" height="100" rx="6" fill="#0d0d1a" stroke="#3d3d5c" stroke-width="1"/>
+  
+  <!-- Coin stack illustration -->
+  <g transform="translate(66, 60)">
+    <!-- Bottom coins -->
+    <ellipse cx="40" cy="75" rx="30" ry="8" fill="#B8860B"/>
+    <rect x="10" y="67" width="60" height="8" fill="#B8860B"/>
+    <ellipse cx="40" cy="67" rx="30" ry="8" fill="#FFD93D"/>
+    
+    <ellipse cx="40" cy="58" rx="28" ry="7" fill="#B8860B"/>
+    <rect x="12" y="51" width="56" height="7" fill="#B8860B"/>
+    <ellipse cx="40" cy="51" rx="28" ry="7" fill="#F9A825"/>
+    
+    <ellipse cx="40" cy="43" rx="26" ry="6" fill="#B8860B"/>
+    <rect x="14" y="37" width="52" height="6" fill="#B8860B"/>
+    <ellipse cx="40" cy="37" rx="26" ry="6" fill="#FFD93D"/>
+    
+    <!-- Top coin with symbol -->
+    <ellipse cx="40" cy="30" rx="24" ry="5" fill="#B8860B"/>
+    <rect x="16" y="25" width="48" height="5" fill="#B8860B"/>
+    <ellipse cx="40" cy="25" rx="24" ry="5" fill="url(#goldAccent)"/>
+    <text x="40" y="29" font-family="Georgia, serif" font-size="10" font-weight="bold" fill="#5D4037" text-anchor="middle">¢</text>
+  </g>
+  
+  <!-- Divider line -->
+  <line x1="50" y1="158" x2="166" y2="158" stroke="#FFD93D" stroke-width="1" opacity="0.5"/>
+  
+  <!-- Effect text area -->
+  <rect x="46" y="165" width="120" height="70" rx="4" fill="#0d0d1a" opacity="0.6"/>
+  <text x="106" y="188" font-family="'Courier New', monospace" font-size="11" fill="#e0e0e0" text-anchor="middle">+1 💰 Credit</text>
+  <text x="106" y="208" font-family="'Courier New', monospace" font-size="9" fill="#888" text-anchor="middle">Basic currency</text>
+  <text x="106" y="222" font-family="'Courier New', monospace" font-size="9" fill="#888" text-anchor="middle">for purchases</text>
+  
+  <!-- Card type indicator -->
+  <text x="106" y="244" font-family="'Courier New', monospace" font-size="8" fill="#666" text-anchor="middle">STARTER</text>
+</svg>
+

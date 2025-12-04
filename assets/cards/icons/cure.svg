@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+  <defs>
+    <linearGradient id="cureGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#E040FB"/>
+      <stop offset="100%" style="stop-color:#7B1FA2"/>
+    </linearGradient>
+    <filter id="cureGlow">
+      <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Vial/Flask -->
+  <path d="M15 8 L15 16 L10 30 Q9 34 13 36 L27 36 Q31 34 30 30 L25 16 L25 8 Z" 
+        fill="url(#cureGrad)" stroke="#4A148C" stroke-width="1.5"/>
+  <!-- Cork -->
+  <rect x="14" y="4" width="12" height="5" rx="1" fill="#8D6E63" stroke="#5D4037" stroke-width="1"/>
+  <!-- Liquid shine -->
+  <path d="M13 28 Q14 24 18 26 Q22 28 24 24" fill="none" stroke="#F3E5F5" stroke-width="1.5" opacity="0.6"/>
+  <!-- Bubbles -->
+  <circle cx="16" cy="30" r="2" fill="#CE93D8" opacity="0.7"/>
+  <circle cx="22" cy="32" r="1.5" fill="#CE93D8" opacity="0.5"/>
+  <!-- Sparkle -->
+  <path d="M32 10 L34 12 L32 14 L30 12 Z" fill="#E1BEE7" filter="url(#cureGlow)"/>
+</svg>
+
