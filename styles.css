@@ -1,0 +1,616 @@
+/* ============================================
+   Pandemic Deckbuilder - Styles
+   ============================================ */
+
+:root {
+  /* Dark theme colors */
+  --bg-dark: #0a0a0f;
+  --bg-panel: #12121a;
+  --bg-card-slot: #1a1a24;
+  --border-subtle: #2a2a3a;
+  --border-glow: #4a4a6a;
+  
+  /* Disease colors */
+  --disease-red: #C62828;
+  --disease-blue: #1565C0;
+  --disease-yellow: #F9A825;
+  --disease-black: #37474F;
+  
+  /* Severity colors */
+  --severity-mild: #4CAF50;
+  --severity-moderate: #FF9800;
+  --severity-critical: #f44336;
+  
+  /* Accent colors */
+  --accent-gold: #FFD54F;
+  --accent-cyan: #00BCD4;
+  --accent-purple: #9C27B0;
+  
+  /* Text */
+  --text-primary: #e0e0e0;
+  --text-secondary: #888;
+  --text-dim: #555;
+  
+  /* Card dimensions */
+  --card-width: 90px;
+  --card-height: 125px;
+  --card-width-sm: 72px;
+  --card-height-sm: 100px;
+  
+  /* Spacing */
+  --gap-sm: 8px;
+  --gap-md: 16px;
+  --gap-lg: 24px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Background pattern */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(76, 175, 80, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(244, 67, 54, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(33, 150, 243, 0.02) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ============================================
+   Layout
+   ============================================ */
+
+.game-container {
+  display: grid;
+  grid-template-areas:
+    "header header status"
+    "board board status"
+    "player player status";
+  grid-template-columns: 1fr 1fr 280px;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  gap: var(--gap-md);
+  padding: var(--gap-md);
+}
+
+/* ============================================
+   Header
+   ============================================ */
+
+.game-header {
+  grid-area: header;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--gap-md) var(--gap-lg);
+  background: var(--bg-panel);
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+}
+
+.game-header h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 1px;
+}
+
+.turn-info {
+  display: flex;
+  gap: var(--gap-md);
+  align-items: center;
+}
+
+.turn-counter {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+}
+
+.phase-indicator {
+  padding: 6px 16px;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.resources {
+  display: flex;
+  gap: var(--gap-lg);
+}
+
+.resource {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.2rem;
+  padding: 8px 16px;
+  background: var(--bg-card-slot);
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+}
+
+.resource span {
+  font-weight: bold;
+  min-width: 20px;
+}
+
+.resource.credit { border-color: var(--accent-gold); }
+.resource.treat { border-color: var(--severity-mild); }
+.resource.scout { border-color: var(--accent-cyan); }
+
+/* ============================================
+   Game Board
+   ============================================ */
+
+.game-board {
+  grid-area: board;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-lg);
+}
+
+/* ============================================
+   City Area
+   ============================================ */
+
+.city-area {
+  background: var(--bg-panel);
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+  padding: var(--gap-lg);
+}
+
+.city-area h2,
+.market-area h2 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-secondary);
+  margin-bottom: var(--gap-md);
+}
+
+.city-columns {
+  display: flex;
+  justify-content: center;
+  gap: var(--gap-lg);
+}
+
+.city-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-sm);
+  padding: var(--gap-md);
+  background: var(--bg-card-slot);
+  border-radius: 12px;
+  border: 2px solid var(--border-subtle);
+  min-width: 140px;
+}
+
+.city-column[data-severity="mild"] {
+  border-color: var(--severity-mild);
+  box-shadow: 0 0 20px rgba(76, 175, 80, 0.1);
+}
+
+.city-column[data-severity="moderate"] {
+  border-color: var(--severity-moderate);
+  box-shadow: 0 0 20px rgba(255, 152, 0, 0.1);
+}
+
+.city-column[data-severity="critical"] {
+  border-color: var(--severity-critical);
+  box-shadow: 0 0 20px rgba(244, 67, 54, 0.15);
+}
+
+.column-header {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm);
+  padding-bottom: var(--gap-sm);
+  border-bottom: 1px solid var(--border-subtle);
+  width: 100%;
+  justify-content: center;
+}
+
+.severity-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.visible-rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+}
+
+.card-slot {
+  width: var(--card-width);
+  height: var(--card-height);
+  border: 2px dashed var(--border-subtle);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.card-slot.empty::after {
+  content: 'Empty';
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.column-deck {
+  position: relative;
+  margin-top: var(--gap-sm);
+}
+
+.column-deck .deck-count {
+  position: absolute;
+  bottom: -8px;
+  right: -8px;
+  background: var(--bg-dark);
+  border: 2px solid var(--border-glow);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* ============================================
+   Cards
+   ============================================ */
+
+.card {
+  width: var(--card-width);
+  height: var(--card-height);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  z-index: 10;
+}
+
+.card.stacked {
+  box-shadow: 
+    3px 3px 0 var(--bg-card-slot),
+    6px 6px 0 var(--border-subtle);
+}
+
+/* ============================================
+   Market Area
+   ============================================ */
+
+.market-area {
+  background: var(--bg-panel);
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+  padding: var(--gap-lg);
+}
+
+.market-display {
+  display: flex;
+  gap: var(--gap-md);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.market-card {
+  position: relative;
+}
+
+.cost-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: linear-gradient(135deg, #FFD54F, #FFA000);
+  color: #1a1a24;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(255, 213, 79, 0.3);
+}
+
+/* ============================================
+   Player Area
+   ============================================ */
+
+.player-area {
+  grid-area: player;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-lg);
+  padding: var(--gap-lg);
+  background: var(--bg-panel);
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+}
+
+.player-deck,
+.discard-pile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-sm);
+  position: relative;
+}
+
+.deck-label,
+.hand-label,
+.played-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+}
+
+.player-deck .deck-count,
+.discard-pile .deck-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--accent-cyan);
+  color: var(--bg-dark);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.deck-stack,
+.discard-stack {
+  position: relative;
+}
+
+.discard-stack.empty .empty-slot {
+  width: var(--card-width);
+  height: var(--card-height);
+  border: 2px dashed var(--border-subtle);
+  border-radius: 8px;
+}
+
+/* Player Hand */
+.player-hand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-sm);
+}
+
+.hand-cards {
+  display: flex;
+  gap: calc(var(--gap-sm) * -1);
+}
+
+.hand-card {
+  transition: transform 0.2s ease, margin 0.2s ease;
+}
+
+.hand-card:hover {
+  transform: translateY(-20px) scale(1.1);
+  margin: 0 10px;
+  z-index: 20;
+}
+
+/* Played Area */
+.played-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-sm);
+  min-width: 200px;
+}
+
+.played-cards {
+  display: flex;
+  gap: var(--gap-sm);
+  min-height: var(--card-height);
+  padding: var(--gap-sm);
+  border: 2px dashed var(--border-subtle);
+  border-radius: 8px;
+  min-width: 180px;
+  justify-content: center;
+  align-items: center;
+}
+
+.played-cards:empty::after {
+  content: 'Play cards here';
+  color: var(--text-dim);
+  font-size: 0.75rem;
+}
+
+/* ============================================
+   Game Status Sidebar
+   ============================================ */
+
+.game-status {
+  grid-area: status;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+.status-panel {
+  background: var(--bg-panel);
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+  padding: var(--gap-lg);
+}
+
+.status-panel h3 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-secondary);
+  margin-bottom: var(--gap-md);
+  padding-bottom: var(--gap-sm);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.status-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--gap-sm) 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.status-item:last-child {
+  border-bottom: none;
+}
+
+.status-label {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.status-value {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.status-value.warning {
+  color: var(--severity-moderate);
+}
+
+.status-value.danger {
+  color: var(--severity-critical);
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+}
+
+.btn {
+  padding: 14px 24px;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 188, 212, 0.3);
+}
+
+.btn-secondary {
+  background: var(--bg-card-slot);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+}
+
+.btn-secondary:hover {
+  background: var(--border-subtle);
+  color: var(--text-primary);
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+
+@media (max-width: 1200px) {
+  .game-container {
+    grid-template-areas:
+      "header"
+      "board"
+      "player"
+      "status";
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+  }
+  
+  .game-status {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .status-panel {
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  .action-buttons {
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --card-width: 72px;
+    --card-height: 100px;
+  }
+  
+  .city-columns {
+    flex-wrap: wrap;
+  }
+  
+  .market-display {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: var(--gap-sm);
+  }
+}
+

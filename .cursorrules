@@ -1,0 +1,86 @@
+# Pandemic Deckbuilder - Project Rules
+
+## What This Project Is
+
+A **solo web-based deckbuilder game** inspired by Pandemic mechanics. Players build their deck to treat diseases across cities before toxic waste overwhelms them.
+
+## 📚 Documentation - READ FIRST
+
+All game design and asset documentation lives in `doc/`. **Always consult these before making changes:**
+
+| Document | Purpose |
+|----------|---------|
+| `doc/game-design.md` | **Master spec** - Game mechanics, rules, card systems, win/lose conditions |
+| `doc/card-art-assets.md` | Card artwork guidelines, SVG structure, color schemes |
+
+When working on:
+- **Game logic** → Read `doc/game-design.md`
+- **UI/Cards/Visuals** → Read `doc/card-art-assets.md`
+- **Both** → Read both docs first
+
+## 🗂️ Project Structure
+
+```
+deckbuilder/
+├── doc/                    # 📖 ALL DOCUMENTATION LIVES HERE
+│   ├── game-design.md      # Game mechanics & rules (source of truth)
+│   └── card-art-assets.md  # Visual design specs
+├── assets/
+│   └── cards/
+│       ├── city-cards/     # City SVGs (red, blue, yellow, black)
+│       ├── player-cards/   # Player deck cards (credit, treat, scout, specialists)
+│       ├── special/        # Epidemic, toxic waste, card back
+│       └── icons/          # Power icons (💰🩺🔭✨⚡)
+├── index.html              # Main game page
+├── styles.css              # Game styling
+├── game.js                 # Game logic (placeholder/WIP)
+└── README.md               # Project overview
+```
+
+## 🎮 Core Game Concepts
+
+1. **Three City Columns** - Mild → Moderate → Critical (left to right)
+2. **Scouting** - Hidden cities must be revealed before treating
+3. **Treating** - Moves cities LEFT toward cure
+4. **Toxic Waste** - Deck pollution from outbreaks (lose condition)
+5. **No Cubes** - Column position IS the infection level
+
+## 🎨 Card Power Icons
+
+| Icon | Power | CSS Class |
+|------|-------|-----------|
+| 💰 | Credit | `.credit` |
+| 🩺 | Treat | `.treat` |
+| 🔭 | Scout | `.scout` |
+| ✨ | Cure | `.cure` |
+| ⚡ | Special | `.special` |
+
+## 🛠️ Development Guidelines
+
+### Before Making Changes
+1. Check `doc/` for existing specs
+2. Maintain consistency with documented mechanics
+3. Keep the solo-game focus (no multiplayer)
+
+### Code Style
+- Vanilla JS (no frameworks yet)
+- CSS custom properties in `:root`
+- SVG cards at 180x250 viewBox
+
+### When Adding Features
+1. Update `doc/game-design.md` if mechanics change
+2. Update `doc/card-art-assets.md` if adding new card types
+3. Follow existing card SVG patterns
+
+## ⚠️ Important Notes
+
+- This is a **prototype** - game balance is not finalized
+- Many mechanics have **open questions** documented in `doc/game-design.md`
+- Card assets use **SVG** format for scalability
+- Color scheme: Dark theme with disease colors (red, blue, yellow, black)
+
+## 🧪 Testing
+
+Open `index.html` in a browser to see the current layout.
+Open `assets/cards/preview.html` to preview all card assets.
+
