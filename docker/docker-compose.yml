@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  production:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "7904:7904"
+    container_name: deckbuilder-prod
+    restart: unless-stopped
+
+  dev:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.dev
+    ports:
+      - "7914:7914"
+    volumes:
+      - ../frontend:/app
+    container_name: deckbuilder-dev
+    restart: unless-stopped
+

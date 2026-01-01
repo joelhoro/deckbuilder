@@ -1,0 +1,20 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+doc/
+
+# Docker files
+docker/
+
+# README
+README.md
+
+# Node modules (if any)
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
