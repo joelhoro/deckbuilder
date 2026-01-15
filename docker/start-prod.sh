@@ -6,3 +6,4 @@ docker-compose -f docker/docker-compose.yml up -d production
 
 echo "Production server starting on http://localhost:7904"
 
+

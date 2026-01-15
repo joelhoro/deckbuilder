@@ -6,3 +6,4 @@ docker-compose -f docker/docker-compose.yml stop production
 
 echo "Production server stopped"
 
+

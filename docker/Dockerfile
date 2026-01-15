@@ -20,3 +20,4 @@ RUN echo 'server { \
 
 CMD ["nginx", "-g", "daemon off;"]
 
+
